@@ -27,7 +27,7 @@ function App() {
 
           </Route> */}
           <Route path="/" exact>
-            <Hero />
+            {/*  <Hero /> */}
             <ItemListContainer />
           </Route>
         </Switch>

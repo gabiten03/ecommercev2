@@ -19,7 +19,7 @@ import {
 
 
 function ItemCount(props) {
-
+    console.log(props)
     const [counter, setCounter] = useState(0);
 
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -51,16 +51,16 @@ function ItemCount(props) {
     return (
 
         <>
-            <Box marginX='auto'>
+            <Box marginX='auto' marginY={6}>
 
 
-                <HStack>
+                <HStack marginY={6}>
                     <Button colorScheme="teal" variant="solid" size="sm" onClick={Increment}>+</Button>
                     <Text justifyContent="space-between" color={useColorModeValue('gray.800', 'white')} fontSize="lg" paddingX={2}>{counter}</Text>
 
                     <Button colorScheme="teal" variant="solid" size="sm" onClick={Decrement}>-</Button>
                 </HStack>
-                <HStack>
+                <HStack marginY={6}>
 
                     <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={onOpen} > Agregar</Button>
 

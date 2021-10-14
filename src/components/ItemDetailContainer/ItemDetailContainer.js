@@ -12,11 +12,11 @@ function ItemDetailContainer(idItem) {
 
 
     const [DetailItem, setDetailItem] = useState(null);
-    const url = baseURL + '/' + idItem.item
-    console.log(url)
+    const urlall = baseURL + '/' + idItem.item
+
     useEffect(() => {
         setTimeout(function () {
-            axios.get(url).then((response) => {
+            axios.get(urlall).then((response) => {
                 setDetailItem(response.data);
 
             });
