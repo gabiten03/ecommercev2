@@ -9,12 +9,10 @@ import {
     ModalContent,
     ModalHeader,
     ModalCloseButton,
-    ModalBody,
     Button,
-    Text
-
 } from '@chakra-ui/react';
-import ItemCount from '../ItemCount/ItemCount';
+
+import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
 
 
 function Item(props) {
@@ -86,25 +84,12 @@ function Item(props) {
             </Box >
             <Modal isOpen={isOpen} onClose={onClose} >
                 <ModalOverlay />
-                <ModalContent marginY={5}>
+                <ModalContent >
                     <ModalHeader>Producto: {data.title}</ModalHeader>
                     <ModalCloseButton />
-                    <ModalBody >
-                        <Image
-                            src={data.image}
-                            borderRadius="full"
-                            alt={`Imagen ${data.name}`}
-                            height={150}
-                            width={150}
-                            marginY={5}
 
-                            marginX='auto'
+                    <ItemDetailContainer item={data.id} />
 
-                        />
-                        <Text marginY={5}>Descripcion: {data.description}</Text>
-                    </ModalBody>
-
-                    <ItemCount items={data} />
 
 
                 </ModalContent>

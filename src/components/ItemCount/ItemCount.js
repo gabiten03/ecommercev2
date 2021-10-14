@@ -19,12 +19,12 @@ import {
 
 
 function ItemCount(props) {
-    console.log(props)
+
     const [counter, setCounter] = useState(0);
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
-    const stock = 1
+
     const stockmax = 10
 
     const Increment = () => {
@@ -43,7 +43,7 @@ function ItemCount(props) {
 
     useEffect(() => {
         setTimeout(() => {
-            console.log("Gettin' Data");
+            console.log("Loading' Data");
 
         }, 2000);
     }, []);

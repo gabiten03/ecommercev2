@@ -24,7 +24,7 @@ function ItemDetailContainer(idItem) {
 
     }, []);
 
-    console.log(DetailItem)
+
 
     if (!DetailItem) return (
         <Flex alignItems='center' width='100%' height='50vh' justifyContent='center'
