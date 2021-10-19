@@ -38,15 +38,15 @@ export default function Hero() {
                                 bg: 'red.400',
                                 zIndex: -1,
                             }}>
-                            Love your Pet,
+                            Encontrá todos los productos que necesitás,
                         </Text>
                         <br />
                         <Text as={'span'} color={'red.400'} >
-                            like your pet does!
+                            en un solo lugar.
                         </Text>
                     </Heading>
                     <Text color={'gray.500'} fontSize={{ base: '1xl', sm: '2xl', lg: '2xl' }}>
-                        We help you to love your pet by providing food, snacks , vitamin and other pet needs.
+
                     </Text>
 
                 </Stack>

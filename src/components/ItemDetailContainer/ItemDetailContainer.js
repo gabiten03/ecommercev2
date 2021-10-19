@@ -5,14 +5,15 @@ import { Spinner } from '@chakra-ui/spinner';
 
 import { Heading, Flex } from '@chakra-ui/react'
 import ItemDetail from '../ItemDetail/ItemDetail';
+
 const baseURL = 'https://fakestoreapi.com/products'
 
-function ItemDetailContainer(idItem) {
 
+function ItemDetailContainer({ match }) {
 
 
     const [DetailItem, setDetailItem] = useState(null);
-    const urlall = baseURL + '/' + idItem.item
+    var urlall = baseURL + '/' + match.params.id
 
     useEffect(() => {
         setTimeout(function () {

@@ -2,25 +2,22 @@ import {
     Flex,
     Box,
     Image,
-    useDisclosure,
+
     Tooltip,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalCloseButton,
-    Button,
+
 } from '@chakra-ui/react';
 
-import ItemDetailContainer from '../ItemDetailContainer/ItemDetailContainer';
+
 
 
 function Item(props) {
     let data = props.props
-    const { isOpen, onOpen, onClose } = useDisclosure()
+
 
     return (
         <>
+
+
             <Box
                 marginX={6}
                 marginY={4}
@@ -29,7 +26,17 @@ function Item(props) {
                 borderWidth="1px"
                 rounded="lg"
                 shadow="lg"
+
             >
+
+                {/*                 <Flex justifyContent="center" alignContent="center" width='60%'>
+
+                    <Box fontSize="2xl" >
+                        <Box as="span" fontSize="lg" color={'gray.400'} textTransform='uppercase' textDecoration='none'>
+                            {data.category}
+                        </Box>
+                    </Box>
+                </Flex> */}
 
                 <Tooltip
                     label={data.title}
@@ -61,7 +68,7 @@ function Item(props) {
                             fontWeight="semibold"
                             lineHeight="tight"
                             isTruncated>
-                            <Box as="span" fontSize="lg">
+                            <Box as="span" fontSize="lg" textDecoration='none' >
                                 {data.title}
                             </Box>
 
@@ -70,30 +77,17 @@ function Item(props) {
                     <Flex justifyContent="space-between" alignContent="center">
 
                         <Box fontSize="2xl" >
-                            <Box as="span" fontSize="lg">
+                            <Box as="span" fontSize="lg" textDecoration='none'>
                                 $ {data.price}
                             </Box>
                         </Box>
                     </Flex>
-                    <Flex justifyContent="space-between" alignContent="center">
-                        <Button onClick={onOpen} >Ver mas</Button>
-                    </Flex>
+
 
 
                 </Box>
             </Box >
-            <Modal isOpen={isOpen} onClose={onClose} >
-                <ModalOverlay />
-                <ModalContent >
-                    <ModalHeader>Producto: {data.title}</ModalHeader>
-                    <ModalCloseButton />
 
-                    <ItemDetailContainer item={data.id} />
-
-
-
-                </ModalContent>
-            </Modal>
         </>
 
 

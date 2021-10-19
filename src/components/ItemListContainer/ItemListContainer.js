@@ -6,17 +6,43 @@ import { Spinner } from '@chakra-ui/spinner';
 import { Heading, Box, Flex, Divider } from '@chakra-ui/react'
 
 
-function ItemListContainer() {
+function ItemListContainer({ match }) {
 
-
+    var title;
     const baseURL = 'https://fakestoreapi.com/products'
+    const category = '/category/'
     const [ListItems, setListItems] = useState(null);
+    var isMatchUndef;
+
+    if (match === undefined) {
+        isMatchUndef = true
+        title = 'Productos'
+    }
+    else {
+        isMatchUndef = false
+        title = 'Categoria'
+    }
 
     useEffect(() => {
         setTimeout(function () {
-            axios.get(baseURL).then((response) => {
-                setListItems(response.data);
-            });
+            if (isMatchUndef === true) {
+
+                axios.get(baseURL).then((response) => {
+                    setListItems(response.data);
+                });
+
+
+
+
+            } else {
+
+                axios.get(`${baseURL}${category}${match.params.id}`).then((response) => {
+                    setListItems(response.data);
+                    console.log(`${baseURL}${category}${match}`)
+                });
+
+
+            }
         }, 2000);
 
     }, []);
@@ -56,7 +82,7 @@ function ItemListContainer() {
                 lineHeight={'110%'}
                 textAlign='center'>
 
-                Productos
+                {title}
                 <Divider paddingTop={8} width='40%' marginX='auto' size='lg' />
                 <ItemList items={ListItems} />
             </Heading >

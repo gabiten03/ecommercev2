@@ -4,7 +4,7 @@ import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer/Footer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
-/* import Hero from './components/Hero/Hero'; */
+import Hero from './components/Hero/Hero';
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -20,14 +20,14 @@ function App() {
       <Router>
         <NavBar />
         <Switch>
-          <Route path="/productos">
-            <ItemDetailContainer item='1' />
+          <Route exact path="/item/:id" component={ItemDetailContainer} >
           </Route>
-          {/*  <Route path="/categorias/:id" component={<ItemListContainer />}>
+          <Route exact path="/categorias/:id" component={ItemListContainer}>
+          </Route>
 
-          </Route> */}
+
           <Route path="/" exact>
-            {/*  <Hero /> */}
+            <Hero />
             <ItemListContainer />
           </Route>
         </Switch>

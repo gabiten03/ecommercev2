@@ -13,11 +13,12 @@ function ItemDetail(props) {
 
     let data = props.itemid
     return (
-        <Flex justifyContent='center'>
+        <Flex justifyContent='center' >
             <Box
                 marginY={4}
                 alignItems="center"
                 bg={useColorModeValue('white', 'gray.800')}
+                width='60%'
 
             >
 
@@ -45,9 +46,9 @@ function ItemDetail(props) {
                     />
                 </Tooltip>
                 <Box p="6">
-                    <Flex mt="1" justifyContent="space-between" alignContent="center">
+                    <Flex mt="1" justifyContent="center" alignContent="center">
 
-                        <Box as="span" color={useColorModeValue('gray.800', 'white')} width='100%' fontSize="lg">
+                        <Box as="span" color={useColorModeValue('gray.800', 'white')} fontSize="lg">
                             {data.description}
                         </Box>
                     </Flex>

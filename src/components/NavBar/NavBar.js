@@ -2,7 +2,7 @@
 import Logo from '../../logo.svg';
 import CartWidget from '../CartWidget/CartWidget';
 import { useColorMode } from "@chakra-ui/color-mode";
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaEnvelope } from 'react-icons/fa'
 import {
     Box,
     Flex,
@@ -15,19 +15,68 @@ import {
     Popover,
     PopoverTrigger,
     useColorModeValue,
+    PopoverContent,
+    popoverContentBgColor,
+
     useDisclosure,
-    IconButton
+    IconButton,
+    ModalOverlay,
+    ModalCloseButton,
+    ModalBody, ModalContent,
+    Modal,
+    ModalFooter,
+    Heading,
+    Button
 } from '@chakra-ui/react';
 import {
     HamburgerIcon,
     CloseIcon,
     ChevronDownIcon,
+    ChevronRightIcon
 } from '@chakra-ui/icons';
+import { Formik } from "formik";
+import {
+    InputControl,
+    SubmitButton,
+    TextareaControl
+} from "formik-chakra-ui";
+
+import * as Yup from "yup";
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const onSubmit = (values) => {
+    sleep(300).then(() => {
+        window.alert(JSON.stringify(values, null, 2));
+    });
+};
+
+const initialValues = {
+    name: "",
+
+
+    notes: "",
+
+};
+const validationSchema = Yup.object({
+    name: Yup.string()
+        .min(2, 'Demasiado Corto')
+        .max(50, 'Demasiado Largo!')
+        .required('Requerido'),
+    notes: Yup.string()
+        .max(250, 'Demasiado Largo!')
+        .required('Requerido'),
+    email: Yup.string().email('Mail Invalido').required('Requerido'),
+
+});
 
 export default function NavBar() {
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
+    const { isOpen: isOpenReportModal,
+        onOpen: onOpenReportModal,
+        onClose: onCloseReportModal } = useDisclosure()
 
     return (
         <Box marginX={8} marginTop={6} >
@@ -74,6 +123,7 @@ export default function NavBar() {
                     spacing={6}>
 
                     <CartWidget />
+                    <IconButton onClick={onOpenReportModal} icon={<FaEnvelope />} isRound='true' ></IconButton>
                     <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
                 </Stack>
             </Flex>
@@ -81,6 +131,47 @@ export default function NavBar() {
             <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse>
+
+            <Modal isOpen={isOpenReportModal} onClose={onCloseReportModal} size="full"  >
+                <ModalOverlay />
+                <ModalContent>
+
+                    <ModalCloseButton size="lg" color="#4e4edd" />
+
+                    <ModalBody marginTop={20}>
+
+
+                        <Formik
+                            initialValues={initialValues}
+                            onSubmit={onSubmit}
+                            validationSchema={validationSchema}
+                        >
+                            {({ handleSubmit, values, errors }) => (
+                                <Box
+
+                                    maxWidth={800}
+                                    p={6}
+                                    m="10px auto"
+                                    as="form"
+                                    onSubmit={handleSubmit}
+                                >
+                                    <Heading>Nos encantaría escuchar de vos !!!</Heading>
+                                    <InputControl marginY={3} name="name" label="Nombre" />
+                                    <InputControl marginY={3} name="email" label="Email" />
+                                    <TextareaControl marginY={3} name="notes" label="Mensaje" />
+                                    <ModalFooter>
+                                        <SubmitButton colorScheme="blue" marginY={8} marginX={6}>Enviar</SubmitButton>
+
+                                        <Button colorScheme="blue" onClick={onCloseReportModal} variant="outline">Cerrar</Button>
+
+                                    </ModalFooter>
+
+                                </Box>
+                            )}
+                        </Formik>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 }
@@ -110,7 +201,21 @@ const DesktopNav = () => {
                                 {navItem.label}
                             </Link>
                         </PopoverTrigger>
-
+                        {navItem.children && (
+                            <PopoverContent
+                                border={0}
+                                boxShadow={'xl'}
+                                bg={popoverContentBgColor}
+                                p={4}
+                                rounded={'xl'}
+                                minW={'sm'}>
+                                <Stack>
+                                    {navItem.children.map((child) => (
+                                        <DesktopSubNav key={child.label} {...child} />
+                                    ))}
+                                </Stack>
+                            </PopoverContent>
+                        )}
 
                     </Popover>
                 </Box>
@@ -119,7 +224,39 @@ const DesktopNav = () => {
     );
 };
 
-
+const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+    return (
+        <Link
+            href={href}
+            role={'group'}
+            display={'block'}
+            p={2}
+            rounded={'md'}
+            _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+            <Stack direction={'row'} align={'center'}>
+                <Box>
+                    <Text
+                        transition={'all .3s ease'}
+                        _groupHover={{ color: 'pink.400' }}
+                        fontWeight={500}>
+                        {label}
+                    </Text>
+                    <Text fontSize={'sm'}>{subLabel}</Text>
+                </Box>
+                <Flex
+                    transition={'all .3s ease'}
+                    transform={'translateX(-10px)'}
+                    opacity={0}
+                    _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+                    justify={'flex-end'}
+                    align={'center'}
+                    flex={1}>
+                    <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
+                </Flex>
+            </Stack>
+        </Link>
+    );
+};
 const MobileNav = () => {
     return (
         <Stack
@@ -191,12 +328,21 @@ const NAV_ITEMS: Array<NavItem> = [
         label: 'Inicio',
         href: '/',
     },
-    {
-        label: 'Productos',
-        href: '/productos',
-    },
+
     {
         label: 'Categorias',
-        href: '/categorias',
+        children: [
+            {
+                label: 'Joyas',
+
+                href: '/categorias/jewelery',
+            },
+            {
+                label: 'Electronicos',
+
+                href: '/categorias/electronics',
+            },
+        ],
+
     },
 ];
