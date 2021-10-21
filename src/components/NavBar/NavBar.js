@@ -43,6 +43,8 @@ import {
 
 import * as Yup from "yup";
 
+
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const onSubmit = (values) => {
@@ -71,6 +73,8 @@ const validationSchema = Yup.object({
 });
 
 export default function NavBar() {
+
+
     const { isOpen, onToggle } = useDisclosure();
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
@@ -315,14 +319,9 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     );
 };
 
-interface NavItem {
-    label: string;
-    subLabel?: string;
-    children?: Array<NavItem>;
-    href?: string;
-}
 
-const NAV_ITEMS: Array<NavItem> = [
+
+const NAV_ITEMS = [
 
     {
         label: 'Inicio',
@@ -342,6 +341,18 @@ const NAV_ITEMS: Array<NavItem> = [
 
                 href: '/categorias/electronics',
             },
+            {
+                label: 'Ropa Mujer',
+
+                href: "/categorias/women's%20clothing",
+            },
+            {
+                label: 'Ropa Hombre',
+
+                href: "/categorias/men's%20clothing",
+            },
+
+
         ],
 
     },

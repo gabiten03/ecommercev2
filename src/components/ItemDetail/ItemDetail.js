@@ -3,15 +3,26 @@ import {
     Box,
     Image,
     useColorModeValue,
-    Tooltip
+    Tooltip,
+    Link
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
-
+import './ItemDetail.css'
 
 function ItemDetail(props) {
 
 
     let data = props.itemid
+    const [addItem, SetAddItem] = useState()
+    const categoriasUrl = '/categorias/'
+
+    const onAdd = (quantityToAdd) => {
+        SetAddItem({ data, quantityToAdd })
+    }
+
+    console.log(addItem)
+
     return (
         <Flex justifyContent='center' >
             <Box
@@ -21,6 +32,16 @@ function ItemDetail(props) {
                 width='60%'
 
             >
+                <Link href={`${categoriasUrl}${data.category} `} className='menu-categories'>
+                    <Flex justifyContent="center" alignContent="center" width='60%' >
+
+                        <Box fontSize="2xl" >
+                            <Box as="span" fontSize="lg" color={'gray.400'} textTransform='uppercase' >
+                                {data.category}
+                            </Box>
+                        </Box>
+                    </Flex>
+                </Link>
 
                 <Tooltip
                     label={data.title}
@@ -36,7 +57,7 @@ function ItemDetail(props) {
                     <Image
                         src={data.image}
                         borderRadius="full"
-                        alt={`Imagen ${data.image}`}
+                        alt={`Imagen ${data.image} `}
                         height={150}
                         width={150}
                         marginTop={5}
@@ -61,12 +82,12 @@ function ItemDetail(props) {
                         </Box>
                     </Flex>
                     <Flex justifyContent="space-between" alignContent="center">
-                        <ItemCount items={data} />
+                        <ItemCount items={data} onAdd={onAdd} />
                     </Flex>
                 </Box>
             </Box>
 
-        </Flex>
+        </Flex >
     );
 }
 

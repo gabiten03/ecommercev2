@@ -23,7 +23,7 @@ function ItemDetailContainer({ match }) {
             });
         }, 0);
 
-    }, []);
+    }, [urlall]);
 
 
 

@@ -11,41 +11,30 @@ function ItemListContainer({ match }) {
     var title;
     const baseURL = 'https://fakestoreapi.com/products'
     const category = '/category/'
+
     const [ListItems, setListItems] = useState(null);
-    var isMatchUndef;
+
+    let useUrl;
 
     if (match === undefined) {
-        isMatchUndef = true
+
         title = 'Productos'
+        useUrl = baseURL
     }
     else {
-        isMatchUndef = false
-        title = 'Categoria'
+
+        title = `${match.params.id}`
+        useUrl = `${baseURL}${category}${match.params.id}`
     }
 
     useEffect(() => {
         setTimeout(function () {
-            if (isMatchUndef === true) {
-
-                axios.get(baseURL).then((response) => {
-                    setListItems(response.data);
-                });
-
-
-
-
-            } else {
-
-                axios.get(`${baseURL}${category}${match.params.id}`).then((response) => {
-                    setListItems(response.data);
-                    console.log(`${baseURL}${category}${match}`)
-                });
-
-
-            }
+            axios.get(useUrl).then((response) => {
+                setListItems(response.data);
+            });
         }, 2000);
 
-    }, []);
+    }, [useUrl]);
 
     if (!ListItems) return (
         <Flex alignItems='center' width='100%' height='50vh' justifyContent='center'
@@ -77,10 +66,11 @@ function ItemListContainer({ match }) {
         <Box paddingX={24} paddingTop={12}>
 
             <Heading
-                fontWeight={600}
-                fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                fontWeight={400}
+                fontSize={{ base: '1xl', sm: '2xl', md: '3xl' }}
                 lineHeight={'110%'}
-                textAlign='center'>
+                textAlign='center'
+                textTransform='uppercase'>
 
                 {title}
                 <Divider paddingTop={8} width='40%' marginX='auto' size='lg' />

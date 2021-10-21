@@ -5,28 +5,24 @@ import {
     Box,
     HStack,
     Text,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalHeader,
-    ModalCloseButton,
-    useDisclosure,
-    ModalFooter,
-    ModalOverlay,
+    /*          Modal,
+            ModalBody,
+            ModalContent,
+            ModalHeader,
+            ModalCloseButton,
+            ModalFooter,
+            ModalOverlay, 
+        useDisclosure, */
+
     useColorModeValue
 } from '@chakra-ui/react';
 
 
 
-function ItemCount(props) {
+function ItemCount(data) {
 
     const [counter, setCounter] = useState(0);
-
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
-
     const stockmax = 10
-
     const Increment = () => {
 
         if ((counter < parseInt(stockmax))) {
@@ -40,6 +36,10 @@ function ItemCount(props) {
             setCounter(counter - 1);
         }
     };
+
+    const OnClick = () => {
+        data.onAdd(counter)
+    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,13 +62,13 @@ function ItemCount(props) {
                 </HStack>
                 <HStack marginY={6}>
 
-                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={onOpen} > Agregar</Button>
+                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={OnClick} > Agregar</Button>
 
                 </HStack>
 
 
 
-
+                {/* 
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
                     <ModalContent>
@@ -86,7 +86,7 @@ function ItemCount(props) {
 
                         </ModalFooter>
                     </ModalContent>
-                </Modal>
+                </Modal> */}
             </Box>
         </>
 

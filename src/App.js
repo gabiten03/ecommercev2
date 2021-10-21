@@ -12,6 +12,7 @@ import {
   Route,
 
 } from "react-router-dom";
+import Cart from './components/Cart/Cart';
 
 
 function App() {
@@ -29,6 +30,11 @@ function App() {
           <Route path="/" exact>
             <Hero />
             <ItemListContainer />
+          </Route>
+
+          <Route path="/cart" exact>
+
+            <Cart />
           </Route>
         </Switch>
 
