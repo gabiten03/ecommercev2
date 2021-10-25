@@ -4,12 +4,13 @@ import {
     Image,
     useColorModeValue,
     Tooltip,
-    Link
+    Link,
+    Button
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css'
-
+let isQuantityAdded;
 function ItemDetail(props) {
 
 
@@ -17,11 +18,14 @@ function ItemDetail(props) {
     const [addItem, SetAddItem] = useState()
     const categoriasUrl = '/categorias/'
 
+
     const onAdd = (quantityToAdd) => {
         SetAddItem({ data, quantityToAdd })
+        console.log(quantityToAdd)
+        isQuantityAdded = quantityToAdd
     }
 
-    console.log(addItem)
+
 
     return (
         <Flex justifyContent='center' >
@@ -82,7 +86,11 @@ function ItemDetail(props) {
                         </Box>
                     </Flex>
                     <Flex justifyContent="space-between" alignContent="center">
-                        <ItemCount items={data} onAdd={onAdd} />
+                        {console.log(isQuantityAdded)}
+                        {(isQuantityAdded === undefined || isQuantityAdded === 0) ? <ItemCount items={data} onAdd={onAdd} /> : <Link href='/cart' marginX='auto' textDecoration='none' _hover={{
+                            textDecoration: 'none',
+
+                        }} > <Button colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button></Link>}
                     </Flex>
                 </Box>
             </Box>
