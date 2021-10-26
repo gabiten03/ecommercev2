@@ -1,28 +1,23 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 
 import {
     Button,
     Box,
     HStack,
     Text,
-    /*          Modal,
-            ModalBody,
-            ModalContent,
-            ModalHeader,
-            ModalCloseButton,
-            ModalFooter,
-            ModalOverlay, 
-        useDisclosure, */
-
     useColorModeValue
 } from '@chakra-ui/react';
-
+import { CartContext } from '../../CartContext';
 
 
 function ItemCount(data) {
 
     const [counter, setCounter] = useState(0);
     const stockmax = 10
+
+    const [cartproduct, setCartProduct, addProduct, removeProduct, clear] = useContext(CartContext);
+
+
     const Increment = () => {
 
         if ((counter < parseInt(stockmax))) {
@@ -36,10 +31,6 @@ function ItemCount(data) {
             setCounter(counter - 1);
         }
     };
-
-    const OnClick = () => {
-        data.onAdd(counter)
-    }
 
     useEffect(() => {
         setTimeout(() => {
@@ -62,31 +53,10 @@ function ItemCount(data) {
                 </HStack>
                 <HStack marginY={6}>
 
-                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={OnClick} > Agregar</Button>
+                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onAdd={addProduct(data.items.id, counter, data.items.price, data.items.title)} > Agregar</Button>
 
                 </HStack>
 
-
-
-                {/* 
-                <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>{props.items.title}</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-
-                            Compraste {counter}
-                        </ModalBody>
-
-                        <ModalFooter>
-                            <Button colorScheme="teal" variant="outline" size="sm" onClick={onClose}>
-                                Cerrar
-                            </Button>
-
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal> */}
             </Box>
         </>
 

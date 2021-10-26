@@ -7,14 +7,19 @@ import {
     Link,
     Button
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css'
+
+
+
 let isQuantityAdded;
 function ItemDetail(props) {
 
 
     let data = props.itemid
+
+
     const [addItem, SetAddItem] = useState()
     const categoriasUrl = '/categorias/'
 
@@ -86,7 +91,7 @@ function ItemDetail(props) {
                         </Box>
                     </Flex>
                     <Flex justifyContent="space-between" alignContent="center">
-                        {console.log(isQuantityAdded)}
+                        {console.log(data)}
                         {(isQuantityAdded === undefined || isQuantityAdded === 0) ? <ItemCount items={data} onAdd={onAdd} /> : <Link href='/cart' marginX='auto' textDecoration='none' _hover={{
                             textDecoration: 'none',
 

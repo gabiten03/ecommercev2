@@ -13,38 +13,40 @@ import {
 
 } from "react-router-dom";
 import Cart from './components/Cart/Cart';
+import { CartProvider } from '../src/CartContext';
 
 
 function App() {
   return (
     <>
-      <Router>
-        <NavBar />
-        <Switch>
-          <Route exact path="/item/:id" component={ItemDetailContainer} >
-          </Route>
-          <Route exact path="/categorias/:id" component={ItemListContainer}>
-          </Route>
+      <CartProvider>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path="/item/:id" component={ItemDetailContainer} >
+            </Route>
+            <Route exact path="/categorias/:id" component={ItemListContainer}>
+            </Route>
 
 
-          <Route path="/" exact>
-            <Hero />
-            <ItemListContainer />
-          </Route>
+            <Route path="/" exact>
+              <Hero />
+              <ItemListContainer />
+            </Route>
 
-          <Route path="/cart" exact>
+            <Route path="/cart" exact>
 
-            <Cart />
-          </Route>
-        </Switch>
+              <Cart />
+            </Route>
+          </Switch>
 
-      </Router>
-
-
+        </Router>
 
 
-      <Footer />
 
+
+        <Footer />
+      </CartProvider>
     </>
   );
 }
