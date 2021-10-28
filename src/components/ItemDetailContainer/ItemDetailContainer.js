@@ -54,8 +54,6 @@ function ItemDetailContainer({ match }) {
     return (
         <ItemDetail itemid={DetailItem} />
     );
-
-
 }
 
 export default ItemDetailContainer

@@ -7,10 +7,10 @@ import {
     Link,
     Button
 } from '@chakra-ui/react';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css'
-
+import { CartContext } from '../../CartContext';
 
 
 let isQuantityAdded;
@@ -22,11 +22,18 @@ function ItemDetail(props) {
 
     const [addItem, SetAddItem] = useState()
     const categoriasUrl = '/categorias/'
+    const [cartproduct, setCartProduct, addProduct, removeProduct, clear] = useContext(CartContext);
 
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("Loading' Data");
+
+        }, 2000);
+    }, []);
 
     const onAdd = (quantityToAdd) => {
         SetAddItem({ data, quantityToAdd })
-        console.log(quantityToAdd)
+
         isQuantityAdded = quantityToAdd
     }
 
@@ -91,12 +98,8 @@ function ItemDetail(props) {
                         </Box>
                     </Flex>
                     <Flex justifyContent="space-between" alignContent="center">
-                        {console.log(data)}
-                        {(isQuantityAdded === undefined || isQuantityAdded === 0) ? <ItemCount items={data} onAdd={onAdd} /> : <Link href='/cart' marginX='auto' textDecoration='none' _hover={{
-                            textDecoration: 'none',
 
-                        }} > <Button colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button></Link>}
-                    </Flex>
+                        <ItemCount items={data} />  </Flex>
                 </Box>
             </Box>
 

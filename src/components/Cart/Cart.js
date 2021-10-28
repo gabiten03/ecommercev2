@@ -1,33 +1,48 @@
-import React from 'react'
+import { React, useState, useEffect, useContext } from 'react';
+import {
+    Button,
+    Box,
+    HStack,
+    Text,
+    useColorModeValue
+} from '@chakra-ui/react';
+import { CartContext } from '../../CartContext';
 
-import { Text, Container, Stack, Heading } from '@chakra-ui/react'
 
-function Cart() {
+function Cart(data) {
+
+
+    const [cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart] = useContext(CartContext);
+
+
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("Loading' Data");
+
+        }, 2000);
+    }, []);
+
+    console.log(cartproduct);
+
     return (
-        <Container maxW={'7xl'}>
-            <Stack
-                align={'center'}
-                spacing={{ base: 8, md: 10 }}
-                py={{ base: 20, md: 28 }}
-                direction={{ base: 'column', md: 'row' }}>
+        <>
+            <Box marginX='auto' marginY={6}>
+                <HStack marginY={6}>
 
-                <Heading
-                    lineHeight={1.1}
-                    fontWeight={600}
-                    fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
-                    <Text
-                        as={'span'}
-                        position={'relative'}
-                    >
-                        Carrito
-                    </Text>
+                </HStack>
+                <HStack marginY={6}>
 
 
-                </Heading>
+                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
 
-            </Stack>
-        </Container>
-    )
+
+                    }} > Agregar</Button>
+                </HStack>
+
+
+            </Box>
+        </>
+    );
 }
 
-export default Cart
+export default Cart;
