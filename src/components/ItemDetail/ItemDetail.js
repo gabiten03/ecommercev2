@@ -4,40 +4,29 @@ import {
     Image,
     useColorModeValue,
     Tooltip,
-    Link,
-    Button
+
 } from '@chakra-ui/react';
-import { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css'
-import { CartContext } from '../../CartContext';
 
 
-let isQuantityAdded;
+
+
 function ItemDetail(props) {
 
 
     let data = props.itemid
 
-
-    const [addItem, SetAddItem] = useState()
     const categoriasUrl = '/categorias/'
-    const [cartproduct, setCartProduct, addProduct, removeProduct, clear] = useContext(CartContext);
 
-    useEffect(() => {
-        setTimeout(() => {
-            console.log("Loading' Data");
-
-        }, 2000);
-    }, []);
-
-    const onAdd = (quantityToAdd) => {
-        SetAddItem({ data, quantityToAdd })
-
-        isQuantityAdded = quantityToAdd
-    }
-
-
+    /*  useEffect(() => {
+         setTimeout(() => {
+             console.log("Loading' Data");
+ 
+         }, 2000);
+     }, []); */
 
     return (
         <Flex justifyContent='center' >
@@ -48,7 +37,7 @@ function ItemDetail(props) {
                 width='60%'
 
             >
-                <Link href={`${categoriasUrl}${data.category} `} className='menu-categories'>
+                <Link to={`${categoriasUrl}${data.category} `} className='menu-categories'>
                     <Flex justifyContent="center" alignContent="center" width='60%' >
 
                         <Box fontSize="2xl" >

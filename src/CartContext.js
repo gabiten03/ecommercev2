@@ -4,6 +4,11 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
+    /* useEffect(() => {
+        console.log(cartproduct);
+    }
+        , []); */
+
     const [cartproduct, setCartProduct] = useState();
 
     const clearState = () => {
@@ -12,31 +17,87 @@ export const CartProvider = ({ children }) => {
 
     const addProduct = (id, quantity, price, title) => {
         console.log(`${id} ${quantity} ${price} ${title}`)
-        setCartProduct([{ id, quantity, price, title }
-        ]);
-        return true
+
+        if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
+            setCartProduct([{ id, quantity, price, title }])
+        } else {
+
+            if (isInCart(id) === true) {
+
+                let newCartProduct = cartproduct.map(item => {
+                    if (item.id === id) {
+                        item.quantity = quantity;
+                    }
+                    return item;
+                });
+                setCartProduct(newCartProduct);
+
+
+            } else {
+                console.log('not in cart')
+                setCartProduct([...cartproduct, { id, quantity, price, title }])
+            }
+        }
+    }
+
+
+    const removeProduct = (id) => {
+
+        const newCartProduct = cartproduct.filter(item => item.id !== id);
+        setCartProduct(newCartProduct);
+        console.log(newCartProduct)
 
     }
 
-    const removeProduct = (id) => { }
     const clear = () => {
         setCartProduct([]);
     };
+    const totalItems = () => {
+        let total = 0;
+        if ((cartproduct !== undefined) && (typeof cartproduct !== 'number')) {
+            cartproduct.map((val) => {
+                total += val.quantity;
+            })
+
+        }
+        return total;
+    }
+
+    const totalPrice = () => {
+        let total = 0;
+        if (cartproduct !== undefined) {
+            cartproduct.map((val) => {
+                total += parseInt(val.quantity) * parseFloat(val.price);
+            })
+
+        }
+        return total;
+    }
 
     const isInCart = (id) => {
-        let i;
-        console.log(cartproduct)
-        cartproduct.some((val) => {
-            if (val.id === id) { i = true } else { i = false }
-            console.log(i)
-            return i;
-        });
+
+
+        if (typeof cartproduct === 'number') {
+            setCartProduct([]);
+        } else {
+
+
+            if (cartproduct !== undefined) {
+                let isInCart = false;
+                cartproduct.map((val) => {
+                    if (val.id === id) {
+                        isInCart = true;
+                    }
+                })
+                return isInCart;
+            }
+        }
 
     }
 
 
     return (
-        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart]}>
+        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart, totalItems, totalPrice]}>
             {children}
         </CartContext.Provider>
     );

@@ -2,6 +2,7 @@
 import Logo from '../../logo.svg';
 import CartWidget from '../CartWidget/CartWidget';
 import { useColorMode } from "@chakra-ui/color-mode";
+import { Link } from 'react-router-dom'
 import { FaSun, FaMoon, FaEnvelope } from 'react-icons/fa'
 import {
     Box,
@@ -10,14 +11,11 @@ import {
     Stack,
     Collapse,
     Image,
-    Icon,
-    Link,
     Popover,
     PopoverTrigger,
     useColorModeValue,
     PopoverContent,
     popoverContentBgColor,
-
     useDisclosure,
     IconButton,
     ModalOverlay,
@@ -31,8 +29,7 @@ import {
 import {
     HamburgerIcon,
     CloseIcon,
-    ChevronDownIcon,
-    ChevronRightIcon
+
 } from '@chakra-ui/icons';
 import { Formik } from "formik";
 import {
@@ -108,7 +105,7 @@ export default function NavBar() {
                     />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Link href='/' > <Image
+                    <Link to={{ pathname: "/" }}> <Image
                         width={55}
                         src={Logo}>
                     </Image>
@@ -191,19 +188,18 @@ const DesktopNav = () => {
                 <Box key={navItem.label}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
-                            <Link
-                                p={2}
-                                href={navItem.href ?? '#'}
-                                fontSize={'sd'}
-                                fontWeight={500}
-                                textTransform='uppercase'
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: 'none',
-                                    color: linkHoverColor,
-                                }}>
-                                {navItem.label}
+
+                            <Link to={navItem.href ?? '#'}>
+                                <Text
+                                    fontWeight={'bold'}
+                                    fontSize={'lg'}
+                                    color={linkColor}
+                                    _hover={{ color: linkHoverColor }}
+                                >
+                                    {navItem.label}
+                                </Text>
                             </Link>
+
                         </PopoverTrigger>
                         {navItem.children && (
                             <PopoverContent
@@ -229,36 +225,19 @@ const DesktopNav = () => {
 };
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+
     return (
-        <Link
-            href={href}
-            role={'group'}
-            display={'block'}
-            p={2}
-            rounded={'md'}
-            _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
-            <Stack direction={'row'} align={'center'}>
-                <Box>
-                    <Text
-                        transition={'all .3s ease'}
-                        _groupHover={{ color: 'pink.400' }}
-                        fontWeight={500}>
-                        {label}
-                    </Text>
-                    <Text fontSize={'sm'}>{subLabel}</Text>
-                </Box>
-                <Flex
-                    transition={'all .3s ease'}
-                    transform={'translateX(-10px)'}
-                    opacity={0}
-                    _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-                    justify={'flex-end'}
-                    align={'center'}
-                    flex={1}>
-                    <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
-                </Flex>
-            </Stack>
+
+        <Link to={href}>
+            <Text
+                fontWeight={'bold'}
+                fontSize={'lg'}
+
+            >
+                {label}
+            </Text>
         </Link>
+
     );
 };
 const MobileNav = () => {
@@ -293,15 +272,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     color={useColorModeValue('gray.600', 'gray.200')}>
                     {label}
                 </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={'all .25s ease-in-out'}
-                        transform={isOpen ? 'rotate(180deg)' : ''}
-                        w={6}
-                        h={6}
-                    />
-                )}
+
             </Flex>
 
             <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>

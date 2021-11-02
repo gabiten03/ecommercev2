@@ -2,7 +2,9 @@ import React from 'react'
 
 import Item from '../Item/Item'
 import { Spinner } from '@chakra-ui/spinner'
-import { SimpleGrid, useColorModeValue, Link } from '@chakra-ui/react'
+import { SimpleGrid, useColorModeValue } from '@chakra-ui/react'
+
+import { Link } from 'react-router-dom'
 
 const urlProducts = '/item/';
 
@@ -15,7 +17,7 @@ function ItemList(items) {
             {Object.keys(items.items).length ? (
 
 
-                items.items.map((elements) => <Link href={`${urlProducts}${elements.id}`}  > <Item props={elements} key={elements.id} /></Link>)) : (<Spinner animation="border" role="status"> </Spinner>)
+                items.items.map((elements) => <Link to={`${urlProducts}${elements.id}`}  > <Item props={elements} key={elements.id} /></Link>)) : (<Spinner animation="border" role="status"> </Spinner>)
 
             }
 

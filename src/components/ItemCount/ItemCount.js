@@ -7,7 +7,7 @@ import {
     useColorModeValue
 } from '@chakra-ui/react';
 import { CartContext } from '../../CartContext';
-import Cart from '../Cart/Cart';
+
 let p = false
 
 function ItemCount(data) {
@@ -28,12 +28,12 @@ function ItemCount(data) {
         }
     };
 
-    useEffect(() => {
-        setTimeout(() => {
-            console.log("Loading' Data");
-
-        }, 2000);
-    }, []);
+    /*    useEffect(() => {
+           setTimeout(() => {
+               console.log("Loading' Data");
+   
+           }, 2000);
+       }, []); */
 
     return (
         <>
@@ -43,19 +43,24 @@ function ItemCount(data) {
                     <Text justifyContent="space-between" color={useColorModeValue('gray.800', 'white')} fontSize="lg" paddingX={2}>{counter}</Text>
                     <Button colorScheme="teal" variant="solid" size="sm" onClick={Decrement}>-</Button>
                 </HStack>
+
+
                 <HStack marginY={6}>
 
 
-                    {p == false ? <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
+                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
                         p = addProduct(data.items.id, counter, data.items.price, data.items.title)
-                        console.log(p)
 
 
-                    }} > Agregar</Button> :
-                        <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button>}
+
+                    }} > Agregar</Button> </HStack>
+
+                <HStack marginY={6}>
+
+
+
+                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button>
                 </HStack>
-
-
             </Box>
         </>
     );

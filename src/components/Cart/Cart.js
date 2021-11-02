@@ -1,48 +1,95 @@
-import { React, useState, useEffect, useContext } from 'react';
+import { React, useContext } from 'react';
 import {
     Button,
     Box,
     HStack,
     Text,
-    useColorModeValue
-} from '@chakra-ui/react';
+    Table,
+    Thead,
+
+    Tfoot,
+    Tr,
+    Th,
+
+    TableCaption,
+} from "@chakra-ui/react"
+
 import { CartContext } from '../../CartContext';
 
 
-function Cart(data) {
+
+function Cart() {
 
 
-    const [cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart] = useContext(CartContext);
+    const [cartproduct, removeProduct] = useContext(CartContext);
 
 
-    useEffect(() => {
-        setTimeout(() => {
-            console.log("Loading' Data");
-
-        }, 2000);
-    }, []);
+    /*   useEffect(() => {
+          setTimeout(() => {
+              console.log("Loading' Data");
+  
+          }, 2000);
+      }, []); */
 
     console.log(cartproduct);
+    if ((cartproduct === undefined) || (typeof cartproduct === 'number')) {
 
-    return (
-        <>
-            <Box marginX='auto' marginY={6}>
-                <HStack marginY={6}>
-
-                </HStack>
-                <HStack marginY={6}>
-
-
-                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
-
-
-                    }} > Agregar</Button>
-                </HStack>
-
-
+        return (
+            <Box padding={20} justifyContent='center'>
+                <Text>No hay productos en el carrito</Text>
             </Box>
-        </>
-    );
+        )
+    } else {
+        return (
+            <Box marginX='auto' marginY={6}>
+
+                <Table variant="simple">
+                    <TableCaption>Imperial to metric conversion factors</TableCaption>
+                    <Thead>
+                        <Tr>
+                            <Th>Producto</Th>
+                            <Th>Cantidad</Th>
+                            <Th isNumeric>Precio Unitario</Th>
+                            <Th isNumeric>Total</Th>
+                        </Tr>
+
+                        {cartproduct.map((item, index) => {
+                            return (
+
+                                <>
+                                    <Tr key={index}>
+                                        <Th>{item.title}</Th>
+                                        <Th>{item.quantity}</Th>
+                                        <Th>{item.price}</Th>
+                                        <Th >{parseFloat(item.price) * parseInt(item.quantity)}</Th>
+                                        <Button id={index} onClick={() => removeProduct(item.id)}>Eliminar</Button>
+                                    </Tr>
+                                    {console.log(cartproduct)}
+
+                                </>
+
+                            )
+                        })
+                        }
+
+
+
+
+
+
+                    </Thead>
+
+                    <Tfoot>
+                        <Tr>
+                            <Th></Th>
+                            <Th></Th>
+                            <Th isNumeric>Precio Total </Th>
+                        </Tr>
+                    </Tfoot>
+                </Table>
+            </Box>
+        );
+    }
 }
 
 export default Cart;
