@@ -8,13 +8,14 @@ import {
 } from '@chakra-ui/react';
 import { CartContext } from '../../CartContext';
 
+import { Link } from 'react-router-dom';
 let p = false
 
 function ItemCount(data) {
 
     const [counter, setCounter] = useState(0);
     const stockmax = 10
-    const [cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart] = useContext(CartContext);
+    const [cartproduct, setCartProduct, addProduct] = useContext(CartContext);
 
     const Increment = () => {
         if ((counter < parseInt(stockmax))) {
@@ -28,12 +29,12 @@ function ItemCount(data) {
         }
     };
 
-    /*    useEffect(() => {
-           setTimeout(() => {
-               console.log("Loading' Data");
-   
-           }, 2000);
-       }, []); */
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("Loading' Data");
+
+        }, 2000);
+    }, []);
 
     return (
         <>
@@ -59,7 +60,7 @@ function ItemCount(data) {
 
 
 
-                    <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button>
+                    <Link to='/cart'> <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button></Link>
                 </HStack>
             </Box>
         </>

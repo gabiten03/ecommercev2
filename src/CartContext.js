@@ -4,19 +4,16 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
-    /* useEffect(() => {
-        console.log(cartproduct);
+    useEffect(() => {
+        console.log('CartContext');
     }
-        , []); */
+        , []);
 
     const [cartproduct, setCartProduct] = useState();
 
-    const clearState = () => {
-        setCartProduct([]);
-    };
+
 
     const addProduct = (id, quantity, price, title) => {
-        console.log(`${id} ${quantity} ${price} ${title}`)
 
         if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
             setCartProduct([{ id, quantity, price, title }])
@@ -41,39 +38,6 @@ export const CartProvider = ({ children }) => {
     }
 
 
-    const removeProduct = (id) => {
-
-        const newCartProduct = cartproduct.filter(item => item.id !== id);
-        setCartProduct(newCartProduct);
-        console.log(newCartProduct)
-
-    }
-
-    const clear = () => {
-        setCartProduct([]);
-    };
-    const totalItems = () => {
-        let total = 0;
-        if ((cartproduct !== undefined) && (typeof cartproduct !== 'number')) {
-            cartproduct.map((val) => {
-                total += val.quantity;
-            })
-
-        }
-        return total;
-    }
-
-    const totalPrice = () => {
-        let total = 0;
-        if (cartproduct !== undefined) {
-            cartproduct.map((val) => {
-                total += parseInt(val.quantity) * parseFloat(val.price);
-            })
-
-        }
-        return total;
-    }
-
     const isInCart = (id) => {
 
 
@@ -97,7 +61,7 @@ export const CartProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart, totalItems, totalPrice]}>
+        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, isInCart,]}>
             {children}
         </CartContext.Provider>
     );

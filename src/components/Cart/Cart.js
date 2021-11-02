@@ -1,17 +1,14 @@
-import { React, useContext } from 'react';
+import { React, useContext, useEffect } from 'react';
 import {
     Button,
     Box,
-    HStack,
     Text,
     Table,
     Thead,
-
     Tfoot,
     Tr,
     Th,
 
-    TableCaption,
 } from "@chakra-ui/react"
 
 import { CartContext } from '../../CartContext';
@@ -21,18 +18,32 @@ import { CartContext } from '../../CartContext';
 function Cart() {
 
 
-    const [cartproduct, removeProduct] = useContext(CartContext);
+    const [cartproduct, setCartProduct,] = useContext(CartContext);
+    const totalPrice = () => {
+        let total = 0;
+        if (cartproduct !== undefined) {
+            cartproduct.map((val) => {
+                total += parseInt(val.quantity) * parseFloat(val.price);
+            })
 
+        }
+        return total.toFixed(2);
+    }
+    const removeProduct = (id) => {
 
-    /*   useEffect(() => {
-          setTimeout(() => {
-              console.log("Loading' Data");
-  
-          }, 2000);
-      }, []); */
+        const newCartProduct = cartproduct.filter(item => item.id !== id);
+        setCartProduct(newCartProduct);
+
+    }
+    useEffect(() => {
+        setTimeout(() => {
+            console.log("Loading' Data");
+
+        }, 2000);
+    }, []);
 
     console.log(cartproduct);
-    if ((cartproduct === undefined) || (typeof cartproduct === 'number')) {
+    if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() == 0)) {
 
         return (
             <Box padding={20} justifyContent='center'>
@@ -44,46 +55,39 @@ function Cart() {
             <Box marginX='auto' marginY={6}>
 
                 <Table variant="simple">
-                    <TableCaption>Imperial to metric conversion factors</TableCaption>
+
                     <Thead>
                         <Tr>
                             <Th>Producto</Th>
                             <Th>Cantidad</Th>
                             <Th isNumeric>Precio Unitario</Th>
                             <Th isNumeric>Total</Th>
+                            <Th ></Th>
                         </Tr>
 
                         {cartproduct.map((item, index) => {
                             return (
-
-                                <>
-                                    <Tr key={index}>
-                                        <Th>{item.title}</Th>
-                                        <Th>{item.quantity}</Th>
-                                        <Th>{item.price}</Th>
-                                        <Th >{parseFloat(item.price) * parseInt(item.quantity)}</Th>
-                                        <Button id={index} onClick={() => removeProduct(item.id)}>Eliminar</Button>
-                                    </Tr>
-                                    {console.log(cartproduct)}
-
-                                </>
+                                <Tr key={index}>
+                                    <Th>{item.title}</Th>
+                                    <Th>{item.quantity}</Th>
+                                    <Th>{item.price}</Th>
+                                    <Th >{(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</Th>
+                                    <Button onClick={() => removeProduct(item.id)}>Eliminar</Button>
+                                </Tr>
 
                             )
                         })
                         }
 
 
-
-
-
-
                     </Thead>
 
                     <Tfoot>
                         <Tr>
-                            <Th></Th>
-                            <Th></Th>
+                            <Th> </Th>
+                            <Th> </Th>
                             <Th isNumeric>Precio Total </Th>
+                            <Th>{totalPrice()}</Th>
                         </Tr>
                     </Tfoot>
                 </Table>

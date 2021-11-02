@@ -1,17 +1,24 @@
 import React, { useContext } from 'react'
 import { IconButton } from '@chakra-ui/button'
-
 import { BiShoppingBag } from 'react-icons/bi'
 import { HStack, Text } from '@chakra-ui/layout'
 import { Link } from 'react-router-dom'
 import { CartContext } from '../../CartContext';
-//for each element in cartproduct    count the quantity of each product and sum the total of products   
-
 
 function CartWidget() {
 
-    const [cartproduct, setCartProduct, addProduct, removeProduct, clear, isInCart, totalItems] = useContext(CartContext);
+    const [cartproduct] = useContext(CartContext);
 
+    const totalItems = () => {
+        let total = 0;
+        if ((cartproduct !== undefined) && (typeof cartproduct !== 'number')) {
+            cartproduct.map((val) => {
+                total += val.quantity;
+            })
+
+        }
+        return total;
+    }
 
 
     return (
@@ -30,7 +37,9 @@ function CartWidget() {
                         }}>
 
                     </IconButton>
-                    <Text display={{ base: 'none', md: 'inline-flex' }} marginLeft={12} zIndex='999' color='black'> {totalItems()}
+                    <Text display={{ base: 'none', md: 'inline-flex' }} marginLeft={12} zIndex='999' color='black'>
+                        {totalItems()}
+
                     </Text>
                 </HStack>
 
