@@ -8,16 +8,14 @@ import {
     Tfoot,
     Tr,
     Th,
-
+    HStack,
+    Grid
 } from "@chakra-ui/react"
-
 import { CartContext } from '../../CartContext';
-
+import { Link } from 'react-router-dom';
 
 
 function Cart() {
-
-
     const [cartproduct, setCartProduct,] = useContext(CartContext);
     const totalPrice = () => {
         let total = 0;
@@ -30,10 +28,8 @@ function Cart() {
         return total.toFixed(2);
     }
     const removeProduct = (id) => {
-
         const newCartProduct = cartproduct.filter(item => item.id !== id);
         setCartProduct(newCartProduct);
-
     }
     useEffect(() => {
         setTimeout(() => {
@@ -44,18 +40,15 @@ function Cart() {
 
     console.log(cartproduct);
     if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() == 0)) {
-
         return (
-            <Box padding={20} justifyContent='center'>
-                <Text>No hay productos en el carrito</Text>
-            </Box>
+            <Grid display={'flex'} padding={20} justifyContent='center'>
+                <HStack> <Text fontSize={'xl'} >No hay productos en el carrito</Text><Link to='/'> <Button>Volver a la tienda</Button></Link> </HStack>
+            </Grid>
         )
     } else {
         return (
             <Box marginX='auto' marginY={6}>
-
                 <Table variant="simple">
-
                     <Thead>
                         <Tr>
                             <Th>Producto</Th>
@@ -64,7 +57,6 @@ function Cart() {
                             <Th isNumeric>Total</Th>
                             <Th ></Th>
                         </Tr>
-
                         {cartproduct.map((item, index) => {
                             return (
                                 <Tr key={index}>
@@ -74,14 +66,10 @@ function Cart() {
                                     <Th >{(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</Th>
                                     <Button onClick={() => removeProduct(item.id)}>Eliminar</Button>
                                 </Tr>
-
                             )
                         })
                         }
-
-
                     </Thead>
-
                     <Tfoot>
                         <Tr>
                             <Th> </Th>
