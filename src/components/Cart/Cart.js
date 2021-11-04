@@ -33,7 +33,7 @@ function Cart() {
     }
     useEffect(() => {
         setTimeout(() => {
-            console.log("Loading' Data");
+            console.log("...");
 
         }, 2000);
     }, []);

@@ -136,12 +136,8 @@ export default function NavBar() {
             <Modal isOpen={isOpenReportModal} onClose={onCloseReportModal} size="full"  >
                 <ModalOverlay />
                 <ModalContent>
-
                     <ModalCloseButton size="lg" color="#4e4edd" />
-
                     <ModalBody marginTop={20}>
-
-
                         <Formik
                             initialValues={initialValues}
                             onSubmit={onSubmit}
@@ -149,7 +145,6 @@ export default function NavBar() {
                         >
                             {({ handleSubmit, values, errors }) => (
                                 <Box
-
                                     maxWidth={800}
                                     p={6}
                                     m="10px auto"
@@ -228,7 +223,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 
     return (
 
-        <Link to={href}>
+        <Link to={href ?? '#'}>
             <Text
                 fontWeight={'bold'}
                 fontSize={'lg'}
@@ -290,41 +285,24 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     );
 };
 
-
-
 const NAV_ITEMS = [
-
     {
         label: 'Inicio',
         href: '/',
     },
-
     {
         label: 'Categorias',
         children: [
             {
-                label: 'Joyas',
+                label: 'Almacen',
 
-                href: '/categorias/jewelery',
+                href: '/categorias/Almacen',
             },
             {
-                label: 'Electronicos',
+                label: 'Frutas & Verduras',
 
-                href: '/categorias/electronics',
+                href: '/categorias/Frutas',
             },
-            {
-                label: 'Ropa Mujer',
-
-                href: "/categorias/women's%20clothing",
-            },
-            {
-                label: 'Ropa Hombre',
-
-                href: "/categorias/men's%20clothing",
-            },
-
-
         ],
-
     },
 ];

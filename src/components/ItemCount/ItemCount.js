@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 let p = false
 
 function ItemCount(data) {
-
+    console.log(data.items[0].price)
     const [counter, setCounter] = useState(0);
     const stockmax = 10
     const [cartproduct, setCartProduct, addProduct] = useContext(CartContext);
@@ -31,35 +31,23 @@ function ItemCount(data) {
 
     useEffect(() => {
         setTimeout(() => {
-            console.log("Loading' Data");
-
+            console.log("....");
         }, 2000);
     }, []);
 
     return (
         <>
-            <Box marginX='auto' marginY={6}>
+            <Box marginY={6}>
                 <HStack marginY={6}>
                     <Button colorScheme="teal" variant="solid" size="sm" onClick={Increment}>+</Button>
                     <Text justifyContent="space-between" color={useColorModeValue('gray.800', 'white')} fontSize="lg" paddingX={2}>{counter}</Text>
                     <Button colorScheme="teal" variant="solid" size="sm" onClick={Decrement}>-</Button>
                 </HStack>
-
-
                 <HStack marginY={6}>
-
-
                     <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
-                        p = addProduct(data.items.id, counter, data.items.price, data.items.title)
-
-
-
+                        p = addProduct(data.items.id, counter, data.items[0].price, data.items[0].title)
                     }} > Agregar</Button> </HStack>
-
                 <HStack marginY={6}>
-
-
-
                     <Link to='/cart'> <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button></Link>
                 </HStack>
             </Box>

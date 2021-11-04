@@ -1,30 +1,32 @@
 import { React, useEffect, useState } from 'react'
-
-import axios from 'axios';
 import { Spinner } from '@chakra-ui/spinner';
-
 import { Heading, Flex } from '@chakra-ui/react'
 import ItemDetail from '../ItemDetail/ItemDetail';
-
-const baseURL = 'https://fakestoreapi.com/products'
+import { db } from '../Firebase/Firebase'
+import { collection, getDocs } from '@firebase/firestore'
 
 
 function ItemDetailContainer({ match }) {
 
-
     const [DetailItem, setDetailItem] = useState(null);
-    var urlall = baseURL + '/' + match.params.id
+    const doc = [];
 
     useEffect(() => {
-        setTimeout(function () {
-            axios.get(urlall).then((response) => {
-                setDetailItem(response.data);
+        const requestData = async () => {
+            const items = await getDocs(collection(db, 'products'))
+            items.forEach((document) => {
+
+                if (document.id === match.params.id) {
+                    doc.push(document.data())
+                    doc.id = match.params.id
+
+                }
 
             });
-        }, 0);
-
-    }, [urlall]);
-
+            setDetailItem(doc)
+        }
+        requestData()
+    }, [])
 
 
     if (!DetailItem) return (
@@ -39,7 +41,6 @@ function ItemDetailContainer({ match }) {
                 alignItems='center'> </Spinner>
 
             <Heading
-
                 paddingLeft={12}
                 fontWeight={300}
                 fontSize={{ base: '1xl', sm: '2xl', md: '3xl' }}
@@ -48,7 +49,6 @@ function ItemDetailContainer({ match }) {
                 Cargando...
 
             </Heading >
-
         </Flex>
     );
     return (

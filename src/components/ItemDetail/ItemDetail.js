@@ -16,29 +16,22 @@ import './ItemDetail.css'
 
 function ItemDetail(props) {
 
-
-    let data = props.itemid
+    const itemId = props.itemid.id
+    let data = props.itemid[0]
 
     const categoriasUrl = '/categorias/'
 
-    /*  useEffect(() => {
-         setTimeout(() => {
-             console.log("Loading' Data");
- 
-         }, 2000);
-     }, []); */
-
     return (
-        <Flex justifyContent='center' >
+        <Flex justifyContent='center' paddingTop={10}>
             <Box
-                marginY={4}
+
                 alignItems="center"
                 bg={useColorModeValue('white', 'gray.800')}
                 width='60%'
-
+                justifyContent="center"
             >
-                <Link to={`${categoriasUrl}${data.category} `} className='menu-categories'>
-                    <Flex justifyContent="center" alignContent="center" width='60%' >
+                <Link to={`${categoriasUrl}${data.category}`} className='menu-categories'>
+                    <Flex justifyContent="center" alignContent="center"  >
 
                         <Box fontSize="2xl" >
                             <Box as="span" fontSize="lg" color={'gray.400'} textTransform='uppercase' >
@@ -63,12 +56,10 @@ function ItemDetail(props) {
                         src={data.image}
                         borderRadius="full"
                         alt={`Imagen ${data.image} `}
-                        height={150}
-                        width={150}
-                        marginTop={5}
+
+                        width={300}
 
                         marginX='auto'
-
                     />
                 </Tooltip>
                 <Box p="6">
@@ -78,17 +69,17 @@ function ItemDetail(props) {
                             {data.description}
                         </Box>
                     </Flex>
-                    <Flex justifyContent="space-between" alignContent="center">
+                    <Flex justifyContent="center" alignContent="center">
 
-                        <Box fontSize="2xl" color={useColorModeValue('gray.800', 'white')}>
-                            <Box as="span" color={useColorModeValue('gray.800', 'white')} fontSize="lg">
+                        <Box fontSize="4xl" color={useColorModeValue('gray.800', 'white')}>
+                            <Box as="span" color={useColorModeValue('gray.800', 'white')} fontSize="4xl">
                                 $ {data.price}
                             </Box>
                         </Box>
                     </Flex>
-                    <Flex justifyContent="space-between" alignContent="center">
+                    <Flex justifyContent="center" alignContent="center">
 
-                        <ItemCount items={data} />  </Flex>
+                        <ItemCount items={props.itemid} />  </Flex>
                 </Box>
             </Box>
 

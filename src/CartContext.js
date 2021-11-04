@@ -1,26 +1,22 @@
 import React, { useState, createContext, useEffect } from 'react';
 
 export const CartContext = createContext();
-
 export const CartProvider = ({ children }) => {
 
     useEffect(() => {
-        console.log('CartContext');
+        console.log('...');
     }
         , []);
 
     const [cartproduct, setCartProduct] = useState();
 
-
-
     const addProduct = (id, quantity, price, title) => {
 
+        console.log(cartproduct);
         if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
             setCartProduct([{ id, quantity, price, title }])
         } else {
-
             if (isInCart(id) === true) {
-
                 let newCartProduct = cartproduct.map(item => {
                     if (item.id === id) {
                         item.quantity = quantity;
@@ -29,23 +25,17 @@ export const CartProvider = ({ children }) => {
                 });
                 setCartProduct(newCartProduct);
 
-
             } else {
-                console.log('not in cart')
                 setCartProduct([...cartproduct, { id, quantity, price, title }])
             }
         }
+        console.log(cartproduct);
     }
 
-
     const isInCart = (id) => {
-
-
         if (typeof cartproduct === 'number') {
             setCartProduct([]);
         } else {
-
-
             if (cartproduct !== undefined) {
                 let isInCart = false;
                 cartproduct.map((val) => {
@@ -56,10 +46,7 @@ export const CartProvider = ({ children }) => {
                 return isInCart;
             }
         }
-
     }
-
-
     return (
         <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, isInCart,]}>
             {children}

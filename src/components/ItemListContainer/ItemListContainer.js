@@ -1,41 +1,45 @@
 import { React, useEffect, useState } from 'react'
 import ItemList from '../ItemList/ItemList'
-import axios from 'axios';
 import { Spinner } from '@chakra-ui/spinner';
-
 import { Heading, Box, Flex, Divider } from '@chakra-ui/react'
+import { db } from '../Firebase/Firebase'
+import { getDocs, collection } from '@firebase/firestore';
 
-
+let title = ''
 function ItemListContainer({ match }) {
-
-    var title;
-    const baseURL = 'https://fakestoreapi.com/products'
+    console.log(match)
     const category = '/category/'
-
     const [ListItems, setListItems] = useState(null);
-
-    let useUrl;
-
-    if (match === undefined) {
-
-        title = 'Productos'
-        useUrl = baseURL
-    }
-    else {
-
-        title = `${match.params.id}`
-        useUrl = `${baseURL}${category}${match.params.id}`
-    }
-
+    const docs = []
     useEffect(() => {
-        setTimeout(function () {
-            axios.get(useUrl).then((response) => {
-                setListItems(response.data);
+        const requestData = async () => {
+            const items = await getDocs(collection(db, 'products'))
+
+            items.forEach((document) => {
+                if (match === undefined) {
+                    docs.push({
+                        ...document.data(), id: document.id
+                    })
+                    title = ''
+
+                } else {
+                    title = `Categoria:   ${match.params.id}`
+                    if (document.data().category === match.params.id) {
+                        docs.push({
+                            ...document.data(), id: document.id
+                        })
+
+                    }
+
+                }
             });
-        }, 2000);
+            setListItems(docs)
+        }
 
-    }, [useUrl]);
+        requestData()
 
+    }, [])
+    console.log(title)
     if (!ListItems) return (
         <Flex alignItems='center' width='100%' height='50vh' justifyContent='center'
         >
@@ -61,6 +65,9 @@ function ItemListContainer({ match }) {
         </Flex>
     );
 
+
+
+
     return (
 
         <Box paddingX={24} paddingTop={12}>
@@ -71,8 +78,9 @@ function ItemListContainer({ match }) {
                 lineHeight={'110%'}
                 textAlign='center'
                 textTransform='uppercase'>
-
                 {title}
+
+
                 <Divider paddingTop={8} width='40%' marginX='auto' size='lg' />
                 <ItemList items={ListItems} />
             </Heading >

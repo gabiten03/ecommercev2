@@ -20,7 +20,6 @@ function CartWidget() {
         return total;
     }
 
-
     return (
         <>
             <Link to='/cart' >
@@ -31,18 +30,14 @@ function CartWidget() {
                         fontWeight={600}
                         color={'white'}
                         bg={'pink.400'}
-
                         _hover={{
                             bg: 'pink.300',
                         }}>
-
                     </IconButton>
                     <Text display={{ base: 'none', md: 'inline-flex' }} marginLeft={12} zIndex='999' color='black'>
                         {totalItems()}
-
                     </Text>
                 </HStack>
-
             </Link>
         </>
     )

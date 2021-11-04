@@ -12,6 +12,29 @@ import {
 } from '@chakra-ui/react';
 import petimg from '../../assets/img/heroimg2.png'
 
+import React, { Component } from 'react';
+import Plx from 'react-plx';
+
+
+const parallaxData = [
+    {
+        start: 0,
+        end: 300,
+        properties: [
+            {
+                startValue: 1,
+                endValue: 1.2,
+                property: 'scale',
+            },
+        ],
+    },
+];
+
+
+
+
+
+
 export default function Hero() {
     return (
         <Container maxW={'7xl'}>
@@ -38,7 +61,7 @@ export default function Hero() {
                                 bg: 'red.400',
                                 zIndex: -1,
                             }}>
-                            Encontrá todos los productos que necesitás,
+                            Todos los productos naturales que necesitás,
                         </Text>
                         <br />
                         <Text as={'span'} color={'red.400'} >
@@ -72,15 +95,16 @@ export default function Hero() {
 
                         width={'full'}
                     >
+                        <Plx parallaxData={parallaxData}>
+                            <Image
+                                alt={'Hero Image'}
+                                fit={'cover'}
+                                align={'center'}
+                                w={'100%'}
 
-                        <Image
-                            alt={'Hero Image'}
-                            fit={'cover'}
-                            align={'center'}
-                            w={'100%'}
-
-                            src={petimg}
-                        />
+                                src={petimg}
+                            />
+                        </Plx>
                     </Box>
                 </Flex>
             </Stack>
