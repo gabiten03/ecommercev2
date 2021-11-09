@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import Hero from './components/Hero/Hero';
-import React from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import Cart from './components/Cart/Cart';
 import { CartProvider } from '../src/CartContext';
+
+
 
 
 function App() {
@@ -31,6 +33,10 @@ function App() {
 
             <Route path="/" exact>
               <Hero />
+              <ItemListContainer />
+            </Route>
+            <Route path="/tienda" exact>
+
               <ItemListContainer />
             </Route>
 

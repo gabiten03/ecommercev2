@@ -10,7 +10,7 @@ import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 import { Image } from '@chakra-ui/image';
 
-import Logo from '../../logo.svg';
+import Logo from '../../assets/img/logo.png';
 
 
 
@@ -28,7 +28,7 @@ export default function Footer() {
                 spacing={4}
                 justify={{ base: 'center', md: 'space-between' }}
                 align={{ base: 'center', md: 'center' }}>
-                <Image src={Logo} width={55} />
+                <Image src={Logo} width={85} />
                 <Text>© 2021 Todos los derechos reservados</Text>
                 <Stack direction={'row'} spacing={6}>
                     <IconButton isRound='true' label={'Twitter'} href={'#'}>

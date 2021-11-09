@@ -24,6 +24,7 @@
     "react-plx": "^1.3.17",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "react-typewriter-effect": "^1.1.0",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"
   },

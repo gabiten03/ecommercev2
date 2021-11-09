@@ -1,9 +1,12 @@
 
-import Logo from '../../logo.svg';
+import Logo from '../../assets/img/logo.png'
 import CartWidget from '../CartWidget/CartWidget';
+import Search from '../Search/Search';
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Link } from 'react-router-dom'
 import { FaSun, FaMoon, FaEnvelope } from 'react-icons/fa'
+
+import Cart from '../Cart/Cart';
 import {
     Box,
     Flex,
@@ -16,6 +19,7 @@ import {
     useColorModeValue,
     PopoverContent,
     popoverContentBgColor,
+
     useDisclosure,
     IconButton,
     ModalOverlay,
@@ -80,7 +84,7 @@ export default function NavBar() {
         onClose: onCloseReportModal } = useDisclosure()
 
     return (
-        <Box marginX={8} marginTop={6} >
+        <Box className="navbar" marginX={8} marginTop={6} >
             <Flex
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
@@ -106,7 +110,7 @@ export default function NavBar() {
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
                     <Link to={{ pathname: "/" }}> <Image
-                        width={55}
+                        width={85}
                         src={Logo}>
                     </Image>
                     </Link>
@@ -116,13 +120,13 @@ export default function NavBar() {
                     </Flex>
                 </Flex>
 
+
                 <Stack
                     flex={{ base: 1, md: 0 }}
-
                     marginLeft={15}
                     direction={'row'}
                     spacing={6}>
-
+                    <Search />
                     <CartWidget />
                     <IconButton onClick={onOpenReportModal} icon={<FaEnvelope />} isRound='true' ></IconButton>
                     <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
@@ -168,6 +172,8 @@ export default function NavBar() {
                     </ModalBody>
                 </ModalContent>
             </Modal>
+
+
         </Box>
     );
 }
@@ -187,8 +193,10 @@ const DesktopNav = () => {
                             <Link to={navItem.href ?? '#'}>
                                 <Text
                                     fontWeight={'bold'}
-                                    fontSize={'lg'}
+                                    fontSize={'sd'}
+                                    padding={2}
                                     color={linkColor}
+                                    textTransform={'uppercase'}
                                     _hover={{ color: linkHoverColor }}
                                 >
                                     {navItem.label}
@@ -215,14 +223,13 @@ const DesktopNav = () => {
                     </Popover>
                 </Box>
             ))}
+
         </Stack>
     );
 };
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
-
     return (
-
         <Link to={href ?? '#'}>
             <Text
                 fontWeight={'bold'}
@@ -267,9 +274,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     color={useColorModeValue('gray.600', 'gray.200')}>
                     {label}
                 </Text>
-
             </Flex>
-
             <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
                 <Stack
                     mt={2}
@@ -278,7 +283,6 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     borderStyle={'solid'}
                     borderColor={useColorModeValue('gray.200', 'gray.700')}
                     align={'start'}>
-
                 </Stack>
             </Collapse>
         </Stack>
@@ -291,17 +295,19 @@ const NAV_ITEMS = [
         href: '/',
     },
     {
+        label: 'Tienda',
+        href: '/tienda',
+    },
+    {
         label: 'Categorias',
         children: [
             {
                 label: 'Almacen',
-
                 href: '/categorias/Almacen',
             },
             {
-                label: 'Frutas & Verduras',
-
-                href: '/categorias/Frutas',
+                label: 'Verduleria',
+                href: '/categorias/Verduleria',
             },
         ],
     },

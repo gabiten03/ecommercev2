@@ -46,9 +46,9 @@ function ItemCount(data) {
                 <HStack marginY={6}>
                     <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
                         p = addProduct(data.items.id, counter, data.items[0].price, data.items[0].title)
-                    }} > Agregar</Button> </HStack>
+                    }} >Agregar</Button> </HStack>
                 <HStack marginY={6}>
-                    <Link to='/cart'> <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  > Ir al carrito</Button></Link>
+                    <Link to='/cart'> <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  >Ir al carrito</Button></Link>
                 </HStack>
             </Box>
         </>

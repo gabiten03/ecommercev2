@@ -9,7 +9,9 @@ export const CartProvider = ({ children }) => {
         , []);
 
     const [cartproduct, setCartProduct] = useState();
+    const [keyword, setKeyword] = useState('');
 
+    console.log(keyword)
     const addProduct = (id, quantity, price, title) => {
 
         console.log(cartproduct);
@@ -29,8 +31,31 @@ export const CartProvider = ({ children }) => {
                 setCartProduct([...cartproduct, { id, quantity, price, title }])
             }
         }
+
+    }
+
+    const addOneProduct = (id, quantity, price, title) => {
+
+        console.log(cartproduct);
+        if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
+            setCartProduct([{ id, quantity, price, title }])
+        } else {
+            if (isInCart(id) === true) {
+                let newCartProduct = cartproduct.map(item => {
+                    if (item.id === id) {
+                        item.quantity = item.quantity + 1;
+                    }
+                    return item;
+                });
+                setCartProduct(newCartProduct);
+
+            } else {
+                setCartProduct([...cartproduct, { id, quantity, price, title }])
+            }
+        }
         console.log(cartproduct);
     }
+
 
     const isInCart = (id) => {
         if (typeof cartproduct === 'number') {
@@ -42,13 +67,14 @@ export const CartProvider = ({ children }) => {
                     if (val.id === id) {
                         isInCart = true;
                     }
+
                 })
                 return isInCart;
             }
         }
     }
     return (
-        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, isInCart,]}>
+        <CartContext.Provider value={[cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword, addOneProduct]}>
             {children}
         </CartContext.Provider>
     );

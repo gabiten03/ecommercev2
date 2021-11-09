@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { IconButton } from '@chakra-ui/button'
-import { BiShoppingBag } from 'react-icons/bi'
-import { HStack, Text } from '@chakra-ui/layout'
-import { Link } from 'react-router-dom'
+import React, { useContext, } from 'react'
+import { IconButton, chakra, HStack, } from '@chakra-ui/react'
+import { Link } from 'react-router-dom';
+import { BiShoppingBag } from 'react-icons/bi';
 import { CartContext } from '../../CartContext';
+
 
 function CartWidget() {
 
@@ -19,13 +19,12 @@ function CartWidget() {
         }
         return total;
     }
-
     return (
-        <>
-            <Link to='/cart' >
-                <HStack >
+        <Link to='/cart' >
+            <HStack >
+                <chakra.span pos="relative" display="inline-block">
                     <IconButton icon={<BiShoppingBag />} isRound='true'
-                        display={{ base: 'none', md: 'inline-flex' }}
+                        flex={{ base: 1, md: 0 }}
                         fontSize={'sm'}
                         fontWeight={600}
                         color={'white'}
@@ -34,13 +33,27 @@ function CartWidget() {
                             bg: 'pink.300',
                         }}>
                     </IconButton>
-                    <Text display={{ base: 'none', md: 'inline-flex' }} marginLeft={12} zIndex='999' color='black'>
+                    <chakra.span
+                        pos="absolute"
+                        top="-1px"
+                        right="-1px"
+                        px={2}
+                        py={1}
+                        fontSize="xs"
+                        fontWeight="bold"
+                        lineHeight="none"
+                        color="red.100"
+                        transform="translate(50%,-50%)"
+                        bg="red.600"
+                        rounded="full"
+                    >
                         {totalItems()}
-                    </Text>
-                </HStack>
-            </Link>
-        </>
-    )
+                    </chakra.span>
+                </chakra.span>
 
+            </HStack>
+        </Link>
+    );
 }
+
 export default CartWidget

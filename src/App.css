@@ -1,3 +1,15 @@
 * {
   font-family: "Montserrat", sans-serif !important;
 }
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.cart {
+  bottom: 8px !important;
+  top: unset !important;
+  right: 45px !important;
+}

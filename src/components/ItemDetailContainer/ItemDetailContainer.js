@@ -15,13 +15,10 @@ function ItemDetailContainer({ match }) {
         const requestData = async () => {
             const items = await getDocs(collection(db, 'products'))
             items.forEach((document) => {
-
                 if (document.id === match.params.id) {
                     doc.push(document.data())
                     doc.id = match.params.id
-
                 }
-
             });
             setDetailItem(doc)
         }

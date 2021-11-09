@@ -12,8 +12,13 @@ import {
 } from '@chakra-ui/react';
 import petimg from '../../assets/img/heroimg2.png'
 
-import React, { Component } from 'react';
+import { useContext, useEffect } from 'react';
+import { CartContext } from '../../CartContext';
+
+import React from 'react';
 import Plx from 'react-plx';
+
+import TypeWriterEffect from 'react-typewriter-effect';
 
 
 const parallaxData = [
@@ -23,21 +28,21 @@ const parallaxData = [
         properties: [
             {
                 startValue: 1,
-                endValue: 1.2,
+                endValue: 1.3,
                 property: 'scale',
             },
         ],
     },
 ];
 
-
-
-
-
-
 export default function Hero() {
+
+    const [cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword, addOneProduct] = useContext(CartContext);
+
+    const isEmpty = keyword === '' ? true : false;
     return (
-        <Container maxW={'7xl'}>
+        <Container maxW={'7xl'} display={isEmpty ? '' : 'none'}>
+
             <Stack
                 align={'center'}
                 spacing={{ base: 8, md: 10 }}
@@ -47,28 +52,21 @@ export default function Hero() {
                     <Heading
                         lineHeight={1.1}
                         fontWeight={600}
-                        fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}>
+                        fontSize={{ base: '3xl', sm: '4xl', lg: '6xl' }}
+                        zIndex={1}>
                         <Text
                             as={'span'}
                             position={'relative'}
-                            _after={{
-                                content: "''",
-                                width: 'full',
-                                height: '30%',
-                                position: 'absolute',
-                                bottom: 1,
-                                left: 0,
-                                bg: 'red.400',
-                                zIndex: -1,
-                            }}>
+                            zIndex={1}
+                        >
                             Todos los productos naturales que necesitás,
                         </Text>
                         <br />
-                        <Text as={'span'} color={'red.400'} >
+                        <Text as={'span'} color={'green.600'} zIndex={1} >
                             en un solo lugar.
                         </Text>
                     </Heading>
-                    <Text color={'gray.500'} fontSize={{ base: '1xl', sm: '2xl', lg: '2xl' }}>
+                    <Text color={'gray.500'} zIndex={2} fontSize={{ base: '1xl', sm: '2xl', lg: '2xl' }}>
 
                     </Text>
 
@@ -85,13 +83,14 @@ export default function Hero() {
                         position={'absolute'}
                         top={'-20%'}
                         left={0}
-                        zIndex={-1}
-                        color={useColorModeValue('red.400', 'white')}
+                        zIndex={1}
+                        color={useColorModeValue('green.600', 'white')}
                     />
                     <Box
                         position={'relative'}
                         height={'300px'}
                         rounded={'2xl'}
+                        zIndex={5}
 
                         width={'full'}
                     >
@@ -108,8 +107,14 @@ export default function Hero() {
                     </Box>
                 </Flex>
             </Stack>
-        </Container>
+
+        </Container >
+
     );
+
+
+
+
 }
 
 
