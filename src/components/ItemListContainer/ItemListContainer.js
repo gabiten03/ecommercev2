@@ -11,16 +11,18 @@ import { objectKeys } from '@chakra-ui/styled-system/node_modules/@chakra-ui/uti
 
 let title = ''
 function ItemListContainer({ match }) {
-    const [cartproduct, setCartProduct, addProduct, isInCart, keyword] = useContext(CartContext);
+    const [, , , , keyword] = useContext(CartContext);
 
     const [ListItems, setListItems] = useState(null);
     const [FilteredItems, setFilteredItems] = useState(null);
-    const docs = []
+
     useEffect(() => {
         const requestData = async () => {
             const items = await getDocs(collection(db, 'products'))
             if (keyword === '') {
+                const docs = []
                 items.forEach((document) => {
+
                     if (match === undefined) {
                         docs.push({
                             ...document.data(), id: document.id
@@ -52,7 +54,6 @@ function ItemListContainer({ match }) {
         }
         requestData()
     }, [keyword, match])
-
     if (!ListItems) {
         return (
             <Flex alignItems='center' width='100%' height='50vh' justifyContent='center'

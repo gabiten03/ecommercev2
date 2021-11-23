@@ -32,7 +32,7 @@ import { db } from '../Firebase/Firebase';
 
 const initialValues = {
     name: "",
-
+    email: "",
 
 
 };
@@ -146,7 +146,7 @@ function Cart() {
                                                     <Th>{item.price}</Th>
                                                     <Th >{(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</Th>
 
-                                                    <IconButton icon={<FaRegTrashAlt />} onClick={() => removeProduct(item.id)}>Eliminar</IconButton>
+                                                    <Th ><IconButton icon={<FaRegTrashAlt />} onClick={() => removeProduct(item.id)}>Eliminar</IconButton></Th>
                                                 </Tr>
                                             )
                                         })
@@ -154,8 +154,8 @@ function Cart() {
                                     </Thead>
                                     <Tfoot>
                                         <Tr>
-                                            <Th> </Th>
-                                            <Th> </Th>
+                                            <Th></Th>
+                                            <Th></Th>
                                             <Th isNumeric>Precio Total </Th>
                                             <Th>{totalPrice()}</Th>
                                         </Tr>

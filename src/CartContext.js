@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
 
     const addOneProduct = (id, quantity, price, title) => {
 
-        console.log(cartproduct);
+
         if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
             setCartProduct([{ id, quantity, price, title }])
         } else {
@@ -53,7 +53,7 @@ export const CartProvider = ({ children }) => {
                 setCartProduct([...cartproduct, { id, quantity, price, title }])
             }
         }
-        console.log(cartproduct);
+
     }
 
 

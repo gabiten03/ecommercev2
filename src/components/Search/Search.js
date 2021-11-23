@@ -1,4 +1,4 @@
-import { HStack, InputGroup, InputLeftElement, Input, useColorModeValue } from '@chakra-ui/react'
+import { HStack, InputGroup, InputLeftElement, Input, } from '@chakra-ui/react'
 import {
     AiOutlineSearch,
 
@@ -10,8 +10,8 @@ import { CartContext } from '../../CartContext';
 import { Link } from 'react-router-dom'
 
 function Search(value) {
-    const [cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword] = useContext(CartContext);
-    const bg = useColorModeValue("white", "gray.800");
+    const [, , , , , setKeyword] = useContext(CartContext);
+
 
     function deleteKeyword(e) {
         e.target.value = ""

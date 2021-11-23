@@ -34,7 +34,7 @@ const parallaxData = [
 
 export default function Hero() {
 
-    const [, keyword] = useContext(CartContext);
+    const [, , , , keyword] = useContext(CartContext);
 
     const isEmpty = keyword === '' ? true : false;
     return (

@@ -11,13 +11,16 @@ import { BsSearch } from 'react-icons/bs'
 
 import { BiShoppingBag } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-let p;
+
 const urlProducts = '/item/';
 
 
 function Item(props) {
-    const [cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword, addOneProduct] = useContext(CartContext);
+    const [, , , , , , addOneProduct] = useContext(CartContext);
     let data = props.props
+    let url = urlProducts + data.id
+
+
     return (
         <>
             <Box
@@ -37,8 +40,10 @@ function Item(props) {
                     fontSize={'1.2em'}
 
                 >
-                    <Link to={`${urlProducts}${data.id}`}>
-                        <Image
+                    <Link to={url || '#'} >
+
+
+                        < Image
                             src={data.image}
                             borderRadius="full"
                             alt={`Imagen ${data.name}`}
@@ -70,7 +75,7 @@ function Item(props) {
                         </Box>
 
                         <Box fontSize="4xl" >
-                            <Link to={`${urlProducts}${data.id}`}>
+                            <Link to={url || '#'}>
                                 <IconButton marginX='auto' colorScheme="teal" variant="ghost" size={8} icon={<BsSearch />} />
                             </Link>
 
@@ -87,7 +92,7 @@ function Item(props) {
 
                             >
                                 <IconButton alt={'Agregar al carrito'} marginX='auto' colorScheme="teal" variant="ghost" size={4} icon={<BiShoppingBag />} onClick={() => {
-                                    p = addOneProduct(data.id, 1, data.price, data.title)
+                                    addOneProduct(data.id, 1, data.price, data.title)
                                 }} > Agregar</IconButton>
                             </Tooltip>
                         </Box>

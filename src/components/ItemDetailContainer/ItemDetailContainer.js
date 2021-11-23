@@ -9,11 +9,12 @@ import { collection, getDocs } from '@firebase/firestore'
 function ItemDetailContainer({ match }) {
 
     const [DetailItem, setDetailItem] = useState(null);
-    const doc = [];
+
 
     useEffect(() => {
         const requestData = async () => {
             const items = await getDocs(collection(db, 'products'))
+            const doc = [];
             items.forEach((document) => {
                 if (document.id === match.params.id) {
                     doc.push(document.data())
@@ -23,7 +24,8 @@ function ItemDetailContainer({ match }) {
             setDetailItem(doc)
         }
         requestData()
-    }, [])
+
+    }, [match.params.id])
 
 
     if (!DetailItem) return (

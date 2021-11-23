@@ -26,7 +26,7 @@ function ItemDetail(props) {
                         bg={useColorModeValue('white', 'gray.800')}
                         width='100%'
                     >
-                        <Link to={`/`} >
+                        <Link to={"/"} >
                             <Flex >
                                 <Box color={'gray.400'} textTransform='uppercase' >
                                     Inicio

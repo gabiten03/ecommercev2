@@ -16,7 +16,7 @@ function ItemCount(data) {
     console.log(data.items[0].price)
     const [counter, setCounter] = useState(0);
     const stockmax = 10
-    const [cartproduct, setCartProduct, addProduct] = useContext(CartContext);
+    const [, , addProduct] = useContext(CartContext);
 
     const Increment = () => {
         if ((counter < parseInt(stockmax))) {
@@ -33,7 +33,7 @@ function ItemCount(data) {
     useEffect(() => {
         setTimeout(() => {
             console.log("....");
-        }, 2000);
+        }, 0);
     }, []);
 
     return (

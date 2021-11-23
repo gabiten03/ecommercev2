@@ -8,7 +8,7 @@ import { CartContext } from '../../CartContext';
 function CartWidget() {
 
     const [cartproduct] = useContext(CartContext);
-    console.log(cartproduct)
+
     const totalItems = () => {
         let total = 0;
         if ((cartproduct !== undefined) && (typeof cartproduct !== 'number')) {
