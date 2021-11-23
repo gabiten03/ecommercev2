@@ -66,8 +66,9 @@ export const CartProvider = ({ children }) => {
                 cartproduct.map((val) => {
                     if (val.id === id) {
                         isInCart = true;
-                    }
 
+                    }
+                    return isInCart;
                 })
                 return isInCart;
             }

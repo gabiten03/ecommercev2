@@ -6,7 +6,7 @@ import { useColorMode } from "@chakra-ui/color-mode";
 import { Link } from 'react-router-dom'
 import { FaSun, FaMoon, FaEnvelope } from 'react-icons/fa'
 
-import Cart from '../Cart/Cart';
+
 import {
     Box,
     Flex,

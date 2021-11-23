@@ -14,10 +14,6 @@ import ItemCount from '../ItemCount/ItemCount';
 import './ItemDetail.css'
 
 
-import { StarIcon } from "@chakra-ui/icons";
-
-
-
 function ItemDetail(props) {
 
     let data = props.itemid[0]

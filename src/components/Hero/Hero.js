@@ -12,14 +12,11 @@ import {
 } from '@chakra-ui/react';
 import petimg from '../../assets/img/heroimg2.png'
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { CartContext } from '../../CartContext';
 
 import React from 'react';
 import Plx from 'react-plx';
-
-import TypeWriterEffect from 'react-typewriter-effect';
-
 
 const parallaxData = [
     {
@@ -37,7 +34,7 @@ const parallaxData = [
 
 export default function Hero() {
 
-    const [cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword, addOneProduct] = useContext(CartContext);
+    const [, keyword] = useContext(CartContext);
 
     const isEmpty = keyword === '' ? true : false;
     return (

@@ -1,4 +1,4 @@
-import { React, useContext, useEffect } from 'react';
+import { React, useContext, useState, useRef } from 'react';
 import {
     Button,
     Box,
@@ -11,12 +11,10 @@ import {
     HStack,
     Grid,
     IconButton,
-    Flex,
-    Heading,
     SimpleGrid,
     GridItem,
-    useColorModeValue,
     useToast
+
 
 } from "@chakra-ui/react"
 import { Formik } from "formik";
@@ -32,16 +30,15 @@ import * as Yup from "yup";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from '../Firebase/Firebase';
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-
-
 const initialValues = {
     name: "",
 
 
 
 };
+
+
+
 const validationSchema = Yup.object({
     name: Yup.string()
         .min(2, 'Demasiado Corto')
@@ -55,13 +52,18 @@ const validationSchema = Yup.object({
 
 
 function Cart() {
-    const [cartproduct, setCartProduct,] = useContext(CartContext);
     const toast = useToast()
+    const toastIdRef = useRef()
+    const [cartproduct, setCartProduct,] = useContext(CartContext);
+    const [isaSuccess, setIsaSuccess] = useState(false);
+
+
     const totalPrice = () => {
         let total = 0;
         if (cartproduct !== undefined) {
             cartproduct.map((val) => {
                 total += parseInt(val.quantity) * parseFloat(val.price);
+                return total;
             })
 
         }
@@ -69,27 +71,28 @@ function Cart() {
     }
 
     const onSubmit = async (values) => {
-
         const docRef = await addDoc(collection(db, "ordenes"), {
             name: values.name,
             mail: values.email,
             products: cartproduct,
             total: totalPrice(),
             date: Timestamp.now(),
-
         });
         console.log("Document written with ID: ", docRef.id);
 
         if (docRef.id) {
-            setCartProduct([]);
-            let res = toast({
-                title: "Compra realizada", description: `Comprobante N° ${docRef.id}`, status: "success",
-                duration: 6000,
+
+            setIsaSuccess(true);
+            toastIdRef.current = toast({
+                title: `Orden N° ${docRef.id} Enviada`,
+                description: "Gracias por tu compra",
+                status: "success",
+                duration: 9000,
                 isClosable: true,
-                position: "top-right",
-            })
+                position: "top",
+            });
 
-
+            setCartProduct([]);
         }
 
         console.log(values)
@@ -99,15 +102,11 @@ function Cart() {
         const newCartProduct = cartproduct.filter(item => item.id !== id);
         setCartProduct(newCartProduct);
     }
-    useEffect(() => {
-        setTimeout(() => {
-            console.log("...");
 
-        }, 2000);
-    }, []);
 
-    console.log(cartproduct);
-    if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() == 0)) {
+
+
+    if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() === 0) || (isaSuccess === true)) {
         return (
             <Grid display={'flex'} padding={20} justifyContent='center'>
                 <HStack> <Text fontSize={'xl'} >Carrito vacío</Text><Link to='/'> <Button>Volver a la tienda</Button></Link> </HStack>
@@ -189,18 +188,16 @@ function Cart() {
                                             <SubmitButton colorScheme="green" marginY={8} >Confirmar Comprar</SubmitButton>
 
 
-
-
-
                                         </Box>
+
                                     )}
                                 </Formik>
                             </Box>
                         </GridItem>
 
-                    </SimpleGrid>
-                </Box>
-            </Box>
+                    </SimpleGrid >
+                </Box >
+            </Box >
 
 
         );

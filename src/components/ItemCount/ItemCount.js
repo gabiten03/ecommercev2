@@ -9,9 +9,10 @@ import {
 import { CartContext } from '../../CartContext';
 
 import { Link } from 'react-router-dom';
-let p = false
+
 
 function ItemCount(data) {
+
     console.log(data.items[0].price)
     const [counter, setCounter] = useState(0);
     const stockmax = 10
@@ -45,7 +46,7 @@ function ItemCount(data) {
                 </HStack>
                 <HStack marginY={6}>
                     <Button marginX='auto' colorScheme="teal" variant="outline" size="lg" onClick={() => {
-                        p = addProduct(data.items.id, counter, data.items[0].price, data.items[0].title)
+                        addProduct(data.items.id, counter, data.items[0].price, data.items[0].title)
                     }} >Agregar</Button> </HStack>
                 <HStack marginY={6}>
                     <Link to='/cart'> <Button marginX='auto' colorScheme="teal" variant="outline" size="lg"  >Ir al carrito</Button></Link>

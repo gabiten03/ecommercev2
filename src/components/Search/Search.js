@@ -5,7 +5,7 @@ import {
 } from "react-icons/ai";
 import { useContext } from 'react';
 import { CartContext } from '../../CartContext';
-import TypeWriterEffect from 'react-typewriter-effect';
+
 
 import { Link } from 'react-router-dom'
 

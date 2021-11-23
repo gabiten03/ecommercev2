@@ -11,7 +11,7 @@ import { objectKeys } from '@chakra-ui/styled-system/node_modules/@chakra-ui/uti
 
 let title = ''
 function ItemListContainer({ match }) {
-    const [cartproduct, setCartProduct, addProduct, isInCart, keyword, setKeyword] = useContext(CartContext);
+    const [cartproduct, setCartProduct, addProduct, isInCart, keyword] = useContext(CartContext);
 
     const [ListItems, setListItems] = useState(null);
     const [FilteredItems, setFilteredItems] = useState(null);
@@ -59,8 +59,8 @@ function ItemListContainer({ match }) {
             >
                 <Spinner thickness="4px"
                     speed="0.65s"
-                    emptyColor="gray.200"
-                    color="blue.500"
+
+                    color="green.500"
                     size="xl"
                     alignItems='center'> </Spinner>
                 <Heading
