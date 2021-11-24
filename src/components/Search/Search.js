@@ -32,7 +32,7 @@ function Search(value) {
                     children={<AiOutlineSearch color='green' />}
                 />
                 <Link to='/tienda' >
-                    <Input flex={{ base: 1, md: 0 }} id="inputKeyword" paddingLeft={10} type="tel" placeholder="Buscar..." w={300} onBlur={(e) => { deleteKeyword(e) }} onChange={(e) => {
+                    <Input flex={{ base: 1, md: 0 }} id="inputKeyword" paddingLeft={10} type="tel" placeholder="Buscar..." w={150} onBlur={(e) => { deleteKeyword(e) }} onChange={(e) => {
                         let key = e.target.value;
                         setKeyword(key)
 

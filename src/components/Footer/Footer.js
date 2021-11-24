@@ -26,7 +26,7 @@ export default function Footer() {
                 py={4}
                 direction={{ base: 'column', md: 'row' }}
                 spacing={4}
-                justify={{ base: 'center', md: 'space-between' }}
+                justify={{ base: 'center', md: 'center' }}
                 align={{ base: 'center', md: 'center' }}>
                 <Image src={Logo} width={85} />
                 <Text>© 2021 Todos los derechos reservados</Text>

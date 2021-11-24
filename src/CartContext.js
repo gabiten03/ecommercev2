@@ -36,7 +36,6 @@ export const CartProvider = ({ children }) => {
 
     const addOneProduct = (id, quantity, price, title) => {
 
-
         if ((cartproduct === undefined) || (typeof (cartproduct) === 'number')) {
             setCartProduct([{ id, quantity, price, title }])
         } else {
@@ -52,6 +51,7 @@ export const CartProvider = ({ children }) => {
             } else {
                 setCartProduct([...cartproduct, { id, quantity, price, title }])
             }
+
         }
 
     }

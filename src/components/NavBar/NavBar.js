@@ -4,7 +4,9 @@ import CartWidget from '../CartWidget/CartWidget';
 import Search from '../Search/Search';
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Link } from 'react-router-dom'
-import { FaSun, FaMoon, FaEnvelope } from 'react-icons/fa'
+import { Icon } from '@chakra-ui/accordion/node_modules/@chakra-ui/icon';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { FaSun, FaMoon, } from 'react-icons/fa'
 
 
 import {
@@ -80,7 +82,7 @@ export default function NavBar() {
     const { colorMode, toggleColorMode } = useColorMode();
     const isDark = colorMode === "dark";
     const { isOpen: isOpenReportModal,
-        onOpen: onOpenReportModal,
+
         onClose: onCloseReportModal } = useDisclosure()
 
     return (
@@ -128,7 +130,7 @@ export default function NavBar() {
                     spacing={6}>
                     <Search />
                     <CartWidget />
-                    <IconButton onClick={onOpenReportModal} icon={<FaEnvelope />} isRound='true' ></IconButton>
+
                     <IconButton ml={8} icon={isDark ? <FaSun /> : <FaMoon />} isRound='true' onClick={toggleColorMode}></IconButton>
                 </Stack>
             </Flex>
@@ -255,26 +257,37 @@ const MobileNav = () => {
     );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href }) => {
     const { isOpen, onToggle } = useDisclosure();
+    console.log(href)
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
-            <Flex
-                py={2}
+            <Link to={href ?? '#'}>
+                <Flex
+                    py={2}
 
-                href={href ?? '#'}
-                justify={'space-between'}
-                align={'center'}
-                _hover={{
-                    textDecoration: 'none',
-                }}>
-                <Text
-                    fontWeight={600}
-                    color={useColorModeValue('gray.600', 'gray.200')}>
-                    {label}
-                </Text>
-            </Flex>
+                    justify={'space-between'}
+                    align={'center'}
+                    _hover={{
+                        textDecoration: 'none',
+                    }}>
+                    <Text
+                        fontWeight={600}
+                        color={useColorModeValue('gray.600', 'gray.200')}>
+                        {label}
+                    </Text>
+                    {children && (
+                        <Icon
+                            as={ChevronDownIcon}
+                            transition={'all .25s ease-in-out'}
+                            transform={isOpen ? 'rotate(180deg)' : ''}
+                            w={6}
+                            h={6}
+                        />
+                    )}
+                </Flex>
+            </Link>
             <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
                 <Stack
                     mt={2}
@@ -283,13 +296,19 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     borderStyle={'solid'}
                     borderColor={useColorModeValue('gray.200', 'gray.700')}
                     align={'start'}>
+                    {children &&
+                        children.map((child) => (
+                            <Link key={child.label} py={2} to={child.href}>
+                                {child.label}
+                            </Link>
+                        ))}
                 </Stack>
             </Collapse>
         </Stack>
     );
 };
 
-const NAV_ITEMS = [
+const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Inicio',
         href: '/',

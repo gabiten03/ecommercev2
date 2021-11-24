@@ -5,7 +5,7 @@ import {
     Tooltip,
     IconButton
 } from '@chakra-ui/react'
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '../../CartContext';
 import { BsSearch } from 'react-icons/bs'
 
@@ -16,13 +16,23 @@ const urlProducts = '/item/';
 
 
 function Item(props) {
+    const [cartcant, setcartcant] = useState(0)
+    const [isstocknull, setisstocknull] = useState(false)
     const [, , , , , , addOneProduct] = useContext(CartContext);
     let data = props.props
     let url = urlProducts + data.id
 
+    const addtocart = (id, price, title, stock) => {
+        if (cartcant < stock) {
+            addOneProduct(id, 1, price, title)
+            setcartcant(cartcant + 1)
+        } else {
+            setisstocknull(true)
+        }
 
+    }
     return (
-        <>
+        <Box>
             <Box
                 marginX={6}
                 marginY={4}
@@ -48,7 +58,7 @@ function Item(props) {
                             borderRadius="full"
                             alt={`Imagen ${data.name}`}
                             height={250}
-                            width={250}
+
                             marginTop={5}
                             marginX='auto'
                         />
@@ -91,15 +101,16 @@ function Item(props) {
                                 fontSize={'1.0em'}
 
                             >
-                                <IconButton alt={'Agregar al carrito'} marginX='auto' colorScheme="teal" variant="ghost" size={4} icon={<BiShoppingBag />} onClick={() => {
-                                    addOneProduct(data.id, 1, data.price, data.title)
+                                <IconButton isDisabled={isstocknull} alt={'Agregar al carrito'} marginX='auto' colorScheme="teal" variant="ghost" size={4} icon={<BiShoppingBag />} onClick={() => {
+                                    addtocart(data.id, data.price, data.title, data.stock)
+
                                 }} > Agregar</IconButton>
                             </Tooltip>
                         </Box>
                     </Flex>
                 </Box>
             </Box >
-        </>
+        </Box>
     );
 }
 

@@ -1,4 +1,4 @@
-import { React, useContext, useState, useRef } from 'react';
+import { React, useContext, useState, useRef, } from 'react';
 import {
     Button,
     Box,
@@ -11,8 +11,8 @@ import {
     HStack,
     Grid,
     IconButton,
-    SimpleGrid,
-    GridItem,
+
+    Stack,
     useToast
 
 
@@ -27,8 +27,9 @@ import { CartContext } from '../../CartContext';
 import { Link } from 'react-router-dom';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import * as Yup from "yup";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { collection, addDoc, Timestamp, } from "firebase/firestore";
 import { db } from '../Firebase/Firebase';
+
 
 const initialValues = {
     name: "",
@@ -79,7 +80,7 @@ function Cart() {
             date: Timestamp.now(),
         });
         console.log("Document written with ID: ", docRef.id);
-
+        console.log(cartproduct)
         if (docRef.id) {
 
             setIsaSuccess(true);
@@ -90,13 +91,15 @@ function Cart() {
                 duration: 9000,
                 isClosable: true,
                 position: "top",
+
             });
 
             setCartProduct([]);
+
         }
 
-        console.log(values)
     };
+
 
     const removeProduct = (id) => {
         const newCartProduct = cartproduct.filter(item => item.id !== id);
@@ -115,89 +118,86 @@ function Cart() {
     } else {
         return (
 
-            <Box      >
-                <Box m={20}
 
-                >
-                    <SimpleGrid
-                        display={{ base: "initial", md: "grid" }}
-                        columns={{ md: 3 }}
-                        spacing={{ md: 6 }}
+            <Stack direction={["column", "row"]} spacing="24px" paddingTop={10}>
 
 
+
+                <Box px={5} width={{ base: "100%", md: "100%", lg: "70%", xl: "70%" }}>
+
+                    <Table variant="simple" marginX='auto' minHeight={200}>
+                        <Thead>
+                            <Tr>
+
+                                <Th>Producto</Th>
+                                <Th>Cantidad</Th>
+                                <Th isNumeric>Precio Unitario</Th>
+                                <Th isNumeric>Total</Th>
+                                <Th ></Th>
+                            </Tr>
+                            {cartproduct.map((item, index) => {
+                                return (
+                                    <Tr key={index}>
+
+                                        <Th>{item.title}</Th>
+                                        <Th>{item.quantity}</Th>
+                                        <Th>{item.price}</Th>
+                                        <Th >{(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</Th>
+
+                                        <Th ><IconButton icon={<FaRegTrashAlt />} onClick={() => removeProduct(item.id)}>Eliminar</IconButton></Th>
+                                    </Tr>
+                                )
+                            })
+                            }
+                        </Thead>
+                        <Tfoot>
+                            <Tr>
+
+                                <Th></Th>
+                                <Th></Th>
+                                <Th isNumeric>Precio Total </Th>
+                                <Th>{totalPrice()}</Th>
+                            </Tr>
+                        </Tfoot>
+                    </Table>
+                </Box>
+
+
+
+                <Box marginX={50} px={10} width={{ base: "100%", md: "100%", lg: "30%", xl: "30%" }} borderWidth="1px"
+                    rounded="lg"
+                    shadow="lg">
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={onSubmit}
+                        validationSchema={validationSchema}
                     >
-                        <GridItem colSpan={{ md: 2 }} py={20}>
-                            <Box px={[4, 0]} borderWidth="1px"
+                        {({ handleSubmit, values, errors }) => (
+                            <Box
+                                maxWidth={800}
+                                p={6}
+                                m="10px auto"
+                                as="form"
+                                onSubmit={handleSubmit}
                             >
-                                <Table variant="simple" marginX='auto' w='100 %' minHeight={200}>
-                                    <Thead>
-                                        <Tr>
-                                            <Th>Producto</Th>
-                                            <Th>Cantidad</Th>
-                                            <Th isNumeric>Precio Unitario</Th>
-                                            <Th isNumeric>Total</Th>
-                                            <Th ></Th>
-                                        </Tr>
-                                        {cartproduct.map((item, index) => {
-                                            return (
-                                                <Tr key={index}>
-                                                    <Th>{item.title}</Th>
-                                                    <Th>{item.quantity}</Th>
-                                                    <Th>{item.price}</Th>
-                                                    <Th >{(parseFloat(item.price) * parseInt(item.quantity)).toFixed(2)}</Th>
+                                <Text>Ingresa tus datos para confirmar la compra</Text>
+                                <InputControl marginY={3} name="name" label="Nombre" />
+                                <InputControl marginY={3} name="email" label="Email" />
 
-                                                    <Th ><IconButton icon={<FaRegTrashAlt />} onClick={() => removeProduct(item.id)}>Eliminar</IconButton></Th>
-                                                </Tr>
-                                            )
-                                        })
-                                        }
-                                    </Thead>
-                                    <Tfoot>
-                                        <Tr>
-                                            <Th></Th>
-                                            <Th></Th>
-                                            <Th isNumeric>Precio Total </Th>
-                                            <Th>{totalPrice()}</Th>
-                                        </Tr>
-                                    </Tfoot>
-                                </Table>
+
+                                <SubmitButton colorScheme="green" marginY={8} >Confirmar Comprar</SubmitButton>
+
+
                             </Box>
-                        </GridItem>
-                        <GridItem mt={[3, null, 0]} colSpan={{ md: 1 }} marginX={10}>
-                            <Box px={[2, 0]} borderWidth="1px"
-                                rounded="lg"
-                                shadow="lg">
-                                <Formik
-                                    initialValues={initialValues}
-                                    onSubmit={onSubmit}
-                                    validationSchema={validationSchema}
-                                >
-                                    {({ handleSubmit, values, errors }) => (
-                                        <Box
-                                            maxWidth={800}
-                                            p={6}
-                                            m="10px auto"
-                                            as="form"
-                                            onSubmit={handleSubmit}
-                                        >
-                                            <Text>Ingresa tus datos para confirmar la compra</Text>
-                                            <InputControl marginY={3} name="name" label="Nombre" />
-                                            <InputControl marginY={3} name="email" label="Email" />
+
+                        )}
+                    </Formik>
+                </Box>
 
 
-                                            <SubmitButton colorScheme="green" marginY={8} >Confirmar Comprar</SubmitButton>
+            </Stack >
 
 
-                                        </Box>
-
-                                    )}
-                                </Formik>
-                            </Box>
-                        </GridItem>
-
-                    </SimpleGrid >
-                </Box >
-            </Box >
 
 
         );

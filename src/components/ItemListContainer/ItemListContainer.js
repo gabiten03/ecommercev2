@@ -38,6 +38,7 @@ function ItemListContainer({ match }) {
                     }
                 });
                 setListItems(docs)
+
             } else {
                 const docsKey = []
                 title = 'Resultado busqueda '
@@ -96,7 +97,7 @@ function ItemListContainer({ match }) {
 
 
     return (
-        <Box paddingX={24} marginTop={42}>
+        <Box paddingX={{ sm: 2 }} marginTop={42}>
             <Heading
                 fontWeight={400}
                 fontSize={{ base: '1xl', sm: '2xl', md: '3xl' }}

@@ -57,7 +57,7 @@ function ItemDetail(props) {
                 <HStack
                     alignItems="center"
                     bg={useColorModeValue('white', 'gray.800')}
-                    width='60%'
+                    width={{ base: '80%', sd: '80%' }}
                     justifyContent="center"
 
                     borderWidth="1px"
@@ -102,92 +102,13 @@ function ItemDetail(props) {
                                 </Box>
                             </Box>
                         </Flex>
+
                         <Flex justifyContent="center" alignContent="center">
                             <ItemCount items={props.itemid} />  </Flex>
                     </VStack>
                 </HStack>
 
             </Flex >
-            {/*             <Flex
-                bg={useColorModeValue("#F9FAFB", "gray.600")}
-                p={50}
-                w="full"
-                minW="full"
-                alignItems="center"
-                justifyContent="center"
-            >
-                <Flex
-
-
-                    bg={useColorModeValue("white", "gray.800")}
-                    shadow="lg"
-                    rounded="lg"
-                    overflow="hidden"
-                    minW={800}
-                    minH={800}
-                >
-                    <Box
-                        w={1 / 3}
-                        bgSize="cover"
-                        style={{
-                            backgroundImage:
-                                `url(${data.image})`,
-                        }}
-                    ></Box>
-
-                    <Box w={2 / 3} p={{ base: 4, md: 4 }} >
-                        <chakra.h1
-                            fontSize="2xl"
-                            fontWeight="bold"
-                            paddingTop={40}
-                            color={useColorModeValue("gray.800", "white")}
-                        >
-                            {data.title}
-                        </chakra.h1>
-
-                        <chakra.p
-                            mt={2}
-                            fontSize="sm"
-                            color={useColorModeValue("gray.600", "gray.400")}
-                        >
-                            {data.description}
-                        </chakra.p>
-
-                        <HStack spacing={1} display="flex" alignItems="center" mt={2}>
-                            <StarIcon color={useColorModeValue("gray.700", "gray.300")} />
-                            <StarIcon color={useColorModeValue("gray.700", "gray.300")} />
-                            <StarIcon color={useColorModeValue("gray.700", "gray.300")} />
-                            <StarIcon color="gray.500" />
-                            <StarIcon color="gray.500" />
-                        </HStack>
-
-                        <Flex mt={3} justifyContent="space-between" paddingBottom={1}>
-                            <chakra.h1 color="white" fontWeight="bold" fontSize="xl" color={useColorModeValue('gray.800', 'white')}>
-                                $ {data.price}
-                            </chakra.h1>
-                            <chakra.button
-                                px={2}
-                                py={1}
-
-                                bg="white"
-                                fontSize="xs"
-                                color="gray.900"
-                                fontWeight="bold"
-                                rounded="lg"
-                                textTransform="uppercase"
-                                _hover={{
-                                    bg: "gray.200",
-                                }}
-                                _focus={{
-                                    bg: "gray.400",
-                                }}
-                            >
-                                Add to cart
-                            </chakra.button>
-                        </Flex>
-                    </Box>
-                </Flex>
-            </Flex> */}
 
         </>
     );
