@@ -27,8 +27,9 @@ import { CartContext } from '../../CartContext';
 import { Link } from 'react-router-dom';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import * as Yup from "yup";
-import { collection, addDoc, Timestamp, } from "firebase/firestore";
+import { collection, addDoc, Timestamp, doc, updateDoc, getDoc, } from "firebase/firestore";
 import { db } from '../Firebase/Firebase';
+
 
 
 const initialValues = {
@@ -94,7 +95,16 @@ function Cart() {
 
             });
 
+            //map cartproduct to find all products and update quantity
+            cartproduct.map((val) => {
+                console.log(val)
+                updateStock(val.id, val.quantity)
+                return val;
+
+            })
             setCartProduct([]);
+            console.log('paso')
+
 
         }
 
@@ -106,8 +116,19 @@ function Cart() {
         setCartProduct(newCartProduct);
     }
 
+    const updateStock = async (id, quantity) => {
 
 
+        const productRef = doc(db, "products", id);
+        await getDoc(productRef).then(async (doc) => {
+            const newStock = doc.data().stock - quantity;
+
+            await updateDoc(productRef, {
+                stock: newStock
+            });
+        })
+
+    }
 
     if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() === 0) || (isaSuccess === true)) {
         return (

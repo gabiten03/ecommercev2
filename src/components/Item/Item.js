@@ -3,7 +3,8 @@ import {
     Box,
     Image,
     Tooltip,
-    IconButton
+    IconButton,
+    Text
 } from '@chakra-ui/react'
 import { useContext, useState } from 'react';
 import { CartContext } from '../../CartContext';
@@ -101,7 +102,7 @@ function Item(props) {
                                 fontSize={'1.0em'}
 
                             >
-                                <IconButton isDisabled={isstocknull} alt={'Agregar al carrito'} marginX='auto' colorScheme="teal" variant="ghost" size={4} icon={<BiShoppingBag />} onClick={() => {
+                                <IconButton isDisabled={isstocknull} alt={'Agregar al carrito'} marginX='auto' colorScheme="teal" variant="ghost" size={4} icon={(data.stock === 0) ? <Text fontSize='20'  >Sin Stock</Text> : <BiShoppingBag />} onClick={() => {
                                     addtocart(data.id, data.price, data.title, data.stock)
 
                                 }} > Agregar</IconButton>

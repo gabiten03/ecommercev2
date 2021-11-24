@@ -1,3 +1,7 @@
 .menu-categories {
   text-decoration: none;
 }
+
+.item-detail-image {
+  max-width: 50% !important;
+}

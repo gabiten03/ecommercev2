@@ -21,10 +21,11 @@ function ItemDetail(props) {
     return (
         <>
             <Flex justifyContent='center' >
-                <Grid templateColumns="repeat(2, 1fr)" >
+                <Grid templateColumns="repeat(2, 1fr)"  >
                     <Box
                         bg={useColorModeValue('white', 'gray.800')}
                         width='100%'
+
                     >
                         <Link to={"/"} >
                             <Flex >
@@ -53,11 +54,11 @@ function ItemDetail(props) {
                 </Grid>
             </Flex>
 
-            <Flex justifyContent='center' paddingTop={10}>
+            <Flex justifyContent='center' paddingTop={10} marginx={20} >
                 <HStack
                     alignItems="center"
                     bg={useColorModeValue('white', 'gray.800')}
-                    width={{ base: '80%', sd: '80%' }}
+                    width={{ md: '80%', sd: '60%', xl: '50%', lg: '40%' }}
                     justifyContent="center"
 
                     borderWidth="1px"
@@ -76,22 +77,23 @@ function ItemDetail(props) {
                         fontSize={'1.2em'}
                     >
                         <Image
+                            className='item-detail-image'
                             src={data.image}
                             borderRadius="full"
                             alt={`Imagen ${data.image}`}
-                            width={500}
+
                             marginX='auto'
                         />
                     </Tooltip>
-                    <VStack >
+                    <VStack width={'50%'}>
 
                         <Flex mt="1" justifyContent="center" alignContent="center">
                             <Box color={useColorModeValue('gray.800', 'white')} fontWeight='bold' fontSize={26}>
                                 {data.title}
                             </Box>
                         </Flex>
-                        <Flex mt="1" justifyContent="center" alignContent="center">
-                            <Box color={useColorModeValue('gray.800', 'white')} fontSize="3x1">
+                        <Flex mt="1" justifyContent="center" alignContent="center" >
+                            <Box color={useColorModeValue('gray.800', 'white')} fontSize="3x1" >
                                 {data.description}
                             </Box>
                         </Flex>
