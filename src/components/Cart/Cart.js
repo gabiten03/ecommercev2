@@ -73,39 +73,57 @@ function Cart() {
     }
 
     const onSubmit = async (values) => {
-        const docRef = await addDoc(collection(db, "ordenes"), {
-            name: values.name,
-            mail: values.email,
-            products: cartproduct,
-            total: totalPrice(),
-            date: Timestamp.now(),
-        });
-        console.log("Document written with ID: ", docRef.id);
         console.log(cartproduct)
-        if (docRef.id) {
 
-            setIsaSuccess(true);
-            toastIdRef.current = toast({
-                title: `Orden N° ${docRef.id} Enviada`,
-                description: "Gracias por tu compra",
-                status: "success",
-                duration: 9000,
+        //if cart is empty
+        if (cartproduct.length === 0) {
+            toast({
+                title: 'Carrito Vacio',
+                description: 'No hay productos en el carrito',
+                status: 'error',
+                duration: 5000,
                 isClosable: true,
-                position: "top",
-
-            });
-
-            //map cartproduct to find all products and update quantity
-            cartproduct.map((val) => {
-                console.log(val)
-                updateStock(val.id, val.quantity)
-                return val;
-
+                position: 'top',
+                onClose: () => {
+                    toastIdRef.current = null;
+                }
             })
-            setCartProduct([]);
-            console.log('paso')
+        } else {
+
+            const docRef = await addDoc(collection(db, "ordenes"), {
+                name: values.name,
+                mail: values.email,
+                products: cartproduct,
+                total: totalPrice(),
+                date: Timestamp.now(),
+            });
+            console.log("Document written with ID: ", docRef.id);
+
+            if (docRef.id) {
+
+                setIsaSuccess(true);
+                toastIdRef.current = toast({
+                    title: `Orden N° ${docRef.id} Enviada`,
+                    description: "Gracias por tu compra",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                    position: "top",
+
+                });
+
+                //map cartproduct to find all products and update quantity
+                cartproduct.map((val) => {
+                    console.log(val)
+                    updateStock(val.id, val.quantity)
+                    return val;
+
+                })
+                setCartProduct([]);
+                console.log('paso')
 
 
+            }
         }
 
     };
@@ -117,17 +135,13 @@ function Cart() {
     }
 
     const updateStock = async (id, quantity) => {
-
-
         const productRef = doc(db, "products", id);
         await getDoc(productRef).then(async (doc) => {
             const newStock = doc.data().stock - quantity;
-
             await updateDoc(productRef, {
                 stock: newStock
             });
         })
-
     }
 
     if ((cartproduct === undefined) || (typeof cartproduct === 'number') || (totalPrice() === 0) || (isaSuccess === true)) {
